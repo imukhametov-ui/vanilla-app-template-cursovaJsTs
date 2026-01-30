@@ -1,15 +1,55 @@
+<!-- src/partials/footer.html -->
 <footer class="footer">
-  <div class="container">
-    <p class="footer-desc">
-      Made with ✨ by
-      <a
-        class="footer-link"
-        href="https://goit.global/ua/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        GoIT team
+  <div class="container footer-container">
+    <div class="footer-top">
+      <a href="/index.html" class="footer-logo">
+        <svg width="126" height="20">
+          <use href="/img/icons.svg#icon-logo"></use>
+        </svg>
       </a>
-    </p>
+
+      <ul class="social-list footer-social">
+        <li>
+          <a href="https://www.facebook.com/goITclub/" class="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20">
+              <use href="/img/icons.svg#icon-facebook"></use>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/goitclub/" class="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20">
+              <use href="/img/icons.svg#icon-instagram"></use>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.youtube.com/c/GoIT" class="social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20">
+              <use href="/img/icons.svg#icon-youtube"></use>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-middle">
+      <p class="footer-slogan">Your Energy - Your Success</p>
+      
+      <form id="subscription-form" class="subscription-form">
+        <input 
+          type="email" 
+          name="email"
+          placeholder="Enter your email"
+          required
+          pattern="^\w+(\.\w+)?@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
+        />
+        <button type="submit" class="btn-subscribe">Subscribe</button>
+      </form>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2024 Your Energy. All rights reserved.</p>
+    </div>
   </div>
 </footer>

@@ -1,20 +1,92 @@
+<!-- src/partials/header.html -->
 <header class="header">
-  <div class="container">
-    <nav class="nav">
-      <a class="nav-logo" href="./index.html" aria-label="Site logo">
-        <svg class="nav-logo-icon" width="100" height="30">
-          <use href="{=$icon-path}"></use>
-        </svg>
-      </a>
+  <div class="container header-container">
+    <a href="/index.html" class="logo">
+      <svg width="126" height="20">
+        <use href="/img/icons.svg#icon-logo"></use>
+      </svg>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="nav desktop-nav">
       <ul class="nav-list">
-        <li class="nav-item">
-          <a class="nav-link {=$highlight-act}" href="./page-2.html">Page 2</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {=$highlight-curr}" href="./page-3.html">Page 3</a>
-        </li>
+        <li><a href="/index.html" class="nav-link">Home</a></li>
+        <li><a href="/favorites.html" class="nav-link">Favorites</a></li>
       </ul>
     </nav>
+
+    <!-- Social Links (Desktop/Tablet) -->
+    <ul class="social-list desktop-social">
+      <li>
+        <a href="https://www.facebook.com/goITclub/" class="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+          <svg width="20" height="20">
+            <use href="/img/icons.svg#icon-facebook"></use>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.instagram.com/goitclub/" class="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+          <svg width="20" height="20">
+            <use href="/img/icons.svg#icon-instagram"></use>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.youtube.com/c/GoIT" class="social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+          <svg width="20" height="20">
+            <use href="/img/icons.svg#icon-youtube"></use>
+          </svg>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Burger Button (Mobile) -->
+    <button class="burger-btn" aria-label="Open menu" type="button">
+      <svg width="28" height="28">
+        <use href="/img/icons.svg#icon-burger"></use>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <div class="mobile-menu-content">
+      <button class="close-menu-btn" aria-label="Close menu" type="button">
+        <svg width="28" height="28">
+          <use href="/img/icons.svg#icon-close"></use>
+        </svg>
+      </button>
+
+      <nav class="mobile-nav">
+        <ul class="nav-list">
+          <li><a href="/index.html" class="nav-link">Home</a></li>
+          <li><a href="/favorites.html" class="nav-link">Favorites</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social-list mobile-social">
+        <li>
+          <a href="https://www.facebook.com/goITclub/" class="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20">
+              <use href="/img/icons.svg#icon-facebook"></use>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/goitclub/" class="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20">
+              <use href="/img/icons.svg#icon-instagram"></use>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.youtube.com/c/GoIT" class="social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20">
+              <use href="/img/icons.svg#icon-youtube"></use>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </header>
-

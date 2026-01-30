@@ -1,23 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla App Template</title>
-    <link rel="stylesheet" href="./css/styles.css" />
-  </head>
-  <body>
-    <load src="./partials/header.html" icon-path="img/sprite.svg#logo" />
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Energy - Home</title>
+</head>
+<body>
+  <!-- Header -->
+  <load src="partials/header.html" />
 
-    <main>
-      <!-- Loads the specified .html file -->
-      <load src="./partials/vite-promo.html" />
-      <load src="./partials/badges.html" />
-    </main>
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title">Get <span class="accent">Body</span> in shape, Stay healthy</h1>
+          <p class="hero-description">
+            Transform your body and mind with personalized workouts. 
+            Start your fitness journey today!
+          </p>
+          
+          <!-- Popular Tags -->
+          <div class="popular-tags">
+            <span class="tag">#Fitness</span>
+            <span class="tag">#Workout</span>
+            <span class="tag">#Health</span>
+          </div>
+        </div>
+        
+        <div class="hero-image">
+          <!-- Додайте своє зображення тут -->
+          <!-- <img src="/img/hero-image.png" alt="Fitness" /> -->
+        </div>
+      </div>
+    </section>
 
-    <load src="./partials/footer.html" />
+    <!-- Main Content Grid -->
+    <section class="main-content">
+      <div class="container">
+        <div class="content-grid">
+          <!-- Left Column: Quote -->
+          <aside class="quote-column">
+            <div id="quote-container" class="quote-wrapper"></div>
+            
+            <div class="info-card">
+              <h3>110 minutes</h3>
+              <p>Daily physical activity is essential for maintaining health and fitness</p>
+            </div>
+          </aside>
 
-    <script type="module" src="./main.js"></script>
-  </body>
+          <!-- Right Column: Filters & Exercises -->
+          <div class="exercises-column">
+            <!-- Filters Section -->
+            <div class="filters-section">
+              <h2>Filters</h2>
+              <div id="filter-tabs" class="filter-tabs"></div>
+              <div id="filter-content" class="filter-content"></div>
+            </div>
+
+            <!-- Exercises Section (спочатку прихована) -->
+            <div class="exercises-section" style="display: none;">
+              <div class="exercises-header">
+                <h2>Exercises <span id="category-name"></span></h2>
+                <input 
+                  type="text" 
+                  id="search-input" 
+                  class="search-input"
+                  placeholder="Search exercises..."
+                />
+              </div>
+              <div id="exercises-container" class="exercises-wrapper"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <load src="partials/footer.html" />
+
+  <!-- Main JS -->
+  <script type="module" src="/main.js"></script>
+</body>
 </html>

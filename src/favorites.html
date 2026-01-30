@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Favorites - Your Energy</title>
+</head>
+<body>
+  <!-- Header -->
+  <load src="partials/header.html" />
+
+  <!-- Main Content -->
+  <main>
+    <section class="favorites-page">
+      <div class="container">
+        <div class="favorites-grid-layout">
+          <!-- Left Column: Quote & Info -->
+          <aside class="favorites-info">
+            <div id="quote-container" class="quote-wrapper"></div>
+            
+            <div class="info-card">
+              <h3>110 minutes</h3>
+              <p>Daily physical activity is essential for maintaining health and fitness</p>
+            </div>
+          </aside>
+
+          <!-- Right Column: Favorites List -->
+          <div class="favorites-main">
+            <h1 class="page-title">Favorites</h1>
+            <div id="favorites-container" class="favorites-container"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <load src="partials/footer.html" />
+
+  <!-- Favorites Page JS -->
+  <script type="module" src="/favorites-page.js"></script>
+</body>
+</html>
