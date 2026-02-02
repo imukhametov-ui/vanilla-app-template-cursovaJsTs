@@ -9,6 +9,7 @@ export default defineConfig(({ command }) => {
       [command === 'serve' ? 'global' : '_global']: {},
     },
     root: 'src',
+    base: '/vanilla-app-template-cursovaJsTs/',
     build: {
       sourcemap: true,
       rollupOptions: {
