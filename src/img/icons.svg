@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <!-- Logo -->
+  <symbol id="icon-logo" viewBox="0 0 126 20">
+    <text x="0" y="15" font-size="16" font-weight="bold">YOUR ENERGY</text>
+  </symbol>
+  
+  <!-- Burger menu -->
+  <symbol id="icon-burger" viewBox="0 0 28 28">
+    <path d="M4 7h20M4 14h20M4 21h20" stroke="currentColor" stroke-width="2" fill="none"/>
+  </symbol>
+  
+  <!-- Close -->
+  <symbol id="icon-close" viewBox="0 0 28 28">
+    <path d="M7 7l14 14M21 7L7 21" stroke="currentColor" stroke-width="2" fill="none"/>
+  </symbol>
+  
+  <!-- Facebook -->
+  <symbol id="icon-facebook" viewBox="0 0 20 20">
+    <path d="M18 2h-3.5C12.5 2 11 3.5 11 5.5V9H8v4h3v9h4v-9h3l1-4h-4V5.5c0-.5.5-1 1-1H18V2z" fill="currentColor"/>
+  </symbol>
+  
+  <!-- Instagram -->
+  <symbol id="icon-instagram" viewBox="0 0 20 20">
+    <rect x="2" y="2" width="16" height="16" rx="4" stroke="currentColor" stroke-width="2" fill="none"/>
+    <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="2" fill="none"/>
+    <circle cx="15" cy="5" r="1" fill="currentColor"/>
+  </symbol>
+  
+  <!-- YouTube -->
+  <symbol id="icon-youtube" viewBox="0 0 20 20">
+    <path d="M19 5c0-1-1-2-2-2H3C2 3 1 4 1 5v10c0 1 1 2 2 2h14c1 0 2-1 2-2V5zM8 14V6l6 4-6 4z" fill="currentColor"/>
+  </symbol>
+  
+  <!-- Heart -->
+  <symbol id="icon-heart" viewBox="0 0 18 18">
+    <path d="M9 16l-7-7c-2-2-2-5 0-7 2-2 5-2 7 0 2-2 5-2 7 0 2 2 2 5 0 7l-7 7z" fill="currentColor"/>
+  </symbol>
+  
+  <!-- Trash -->
+  <symbol id="icon-trash" viewBox="0 0 16 16">
+    <path d="M2 4h12M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1m2 0v10a1 1 0 01-1 1H4a1 1 0 01-1-1V4h10z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  </symbol>
+</svg>
