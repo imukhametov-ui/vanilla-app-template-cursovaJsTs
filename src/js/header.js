@@ -8,7 +8,6 @@ export function initHeader() {
   const menuLinks = document.querySelectorAll('.nav-link');
 
   if (!burgerBtn || !mobileMenu) {
-    console.log('Header elements not found');
     return;
   }
 

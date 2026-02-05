@@ -107,7 +107,6 @@ class Filters {
   }
 
   onFilterSelect(filter) {
-    console.log('Filter selected:', filter);
   }
 
   init() {
