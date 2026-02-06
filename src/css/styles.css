@@ -214,6 +214,39 @@ body {
   padding: 40px 0;
   background-color: var(--white);
 }
+/* Hero Layout */
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hero-small-image {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.hero-small-image img {
+  width: 168px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: flex-start;
+}
+
 
 .hero-image {
   position: relative;
