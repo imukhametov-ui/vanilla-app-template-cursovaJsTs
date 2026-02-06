@@ -1110,16 +1110,3 @@ body {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-```
-
----
-
-## 📋 ЩО ЗМІНЕНО:
-```
-✅ Filter cards: 290×242px, gap 32px
-✅ Quote card: темний фон (#242424), висота 315px
-✅ Info card: title 48px (було 28px)
-✅ Footer slogan: 56px, line-height 60px, letter-spacing -2%
-✅ Hero image: 350px на desktop
-✅ Modal: 708px width
-✅ Container: 32px padding на desktop
