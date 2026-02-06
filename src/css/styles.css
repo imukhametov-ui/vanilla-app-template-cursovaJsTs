@@ -10,7 +10,7 @@
   --text-color: #242424;
   --bg-color: #F4F4F4;
   --white: #FFFFFF;
-  --gray: #5a5a5a; /* Замість #808080 - кращий контраст */
+  --gray: #5a5a5a;
   --light-gray: #F4F4F4;
   --error: #D32F2F;
   --success: #388E3C;
@@ -28,6 +28,7 @@ body {
   background-color: var(--bg-color);
   line-height: 1.5;
 }
+
 .container {
   max-width: 1440px;
   margin: 0 auto;
@@ -36,7 +37,7 @@ body {
 
 @media (min-width: 1024px) {
   .container {
-    padding: 0 32px;  /* Більше на desktop */
+    padding: 0 32px;
   }
 }
 
@@ -209,6 +210,11 @@ body {
 }
 
 /* Hero Section */
+.hero-section {
+  padding: 40px 0;
+  background-color: var(--white);
+}
+
 .hero-image {
   position: relative;
   border-radius: 12px;
@@ -232,12 +238,8 @@ body {
 
 @media (min-width: 1024px) {
   .hero-image img {
-    height: 350px;  /* Точний розмір з Figma */
+    height: 350px;
   }
-}
-.hero-section {
-  padding: 40px 0;
-  background-color: var(--white);
 }
 
 .hero-content h1 {
@@ -282,43 +284,57 @@ body {
 
 /* Quote Column */
 .quote-wrapper {
-  background-color: var(--white);
-  padding: 20px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 24px;
   border-radius: 12px;
   margin-bottom: 20px;
+  min-height: 315px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .quote-card {
-  text-align: center;
+  text-align: left;
 }
 
 .quote-text {
   font-style: italic;
-  margin-bottom: 10px;
-  font-size: 16px;
-  color: var(--gray);
+  margin-bottom: 16px;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
 }
 
 .quote-author {
   font-weight: 600;
-  color: var(--primary-color);
+  color: var(--white);
+  font-size: 14px;
 }
 
 .info-card {
   background-color: var(--white);
-  padding: 20px;
+  padding: 28px 24px;
   border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .info-card-title {
-  font-size: 28px;
+  font-size: 48px;
+  font-weight: 700;
   color: var(--accent-color);
-  margin-bottom: 10px;
+  line-height: 1.1;
+  margin: 0;
 }
 
 .info-card p {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--gray);
+  line-height: 1.5;
+  margin: 0;
 }
 
 /* Filters */
@@ -355,15 +371,32 @@ body {
 .filter-content {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 15px;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .filter-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .filter-content {
+    grid-template-columns: repeat(3, 290px);
+    gap: 32px;
+  }
 }
 
 .filter-item {
   background-color: var(--white);
-  padding: 15px;
+  padding: 16px;
   border-radius: 12px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  height: 242px;
+  display: flex;
+  flex-direction: column;
 }
 
 .filter-item:hover {
@@ -373,10 +406,11 @@ body {
 
 .filter-item-image {
   width: 100%;
-  height: 120px;
+  height: 168px;
   overflow: hidden;
-  border-radius: 8px;
-  margin-bottom: 10px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  flex-shrink: 0;
 }
 
 .filter-item-image img {
@@ -805,8 +839,24 @@ body {
 }
 
 .footer-slogan {
-  font-size: 16px;
+  font-size: 56px;
   font-weight: 500;
+  line-height: 60px;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 767px) {
+  .footer-slogan {
+    font-size: 32px;
+    line-height: 36px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .footer-slogan {
+    font-size: 42px;
+    line-height: 48px;
+  }
 }
 
 .subscription-form {
@@ -1020,7 +1070,6 @@ body {
     grid-template-columns: 280px 1fr;
   }
 
-  .filter-content,
   .exercises-grid,
   .favorites-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1045,7 +1094,6 @@ body {
 }
 
 @media (min-width: 1024px) {
-  .filter-content,
   .exercises-grid,
   .favorites-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -1062,3 +1110,16 @@ body {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+```
+
+---
+
+## 📋 ЩО ЗМІНЕНО:
+```
+✅ Filter cards: 290×242px, gap 32px
+✅ Quote card: темний фон (#242424), висота 315px
+✅ Info card: title 48px (було 28px)
+✅ Footer slogan: 56px, line-height 60px, letter-spacing -2%
+✅ Hero image: 350px на desktop
+✅ Modal: 708px width
+✅ Container: 32px padding на desktop
