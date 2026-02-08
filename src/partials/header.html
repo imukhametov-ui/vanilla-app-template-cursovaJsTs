@@ -1,15 +1,12 @@
-<!-- src/partials/header.html -->
 <header class="header">
   <div class="container">
     <div class="header-container">
-      <!-- Logo -->
+      <!-- Logo - 42px -->
       <a href="./index.html" class="logo">
-        <svg width="126" height="20">
-          <use href="/images/icons.svg#icon-logo"></use>
-        </svg>
+        YOUR ENERGY
       </a>
 
-      <!-- Desktop Navigation -->
+      <!-- Desktop Navigation - по центру, 28px від верху -->
       <nav class="desktop-nav">
         <ul class="nav-list">
           <li><a href="./index.html" class="nav-link active">Home</a></li>
@@ -17,35 +14,46 @@
         </ul>
       </nav>
 
-      <!-- Маленька картинка в header праворуч (тільки desktop) -->
-      <div class="header-small-image">
-        <img src="/images/hero-fitness-smoll.jpg" alt="Workout" width="168" height="100">
-      </div>
+      <!-- Права частина: Social + Image + Tags -->
+      <div class="header-right">
+        <!-- Social Links (Desktop) -->
+        <ul class="social-list desktop-social">
+          <li>
+            <a href="https://www.facebook.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg width="20" height="20">
+                <use href="/images/icons.svg#icon-facebook"></use>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg width="20" height="20">
+                <use href="/images/icons.svg#icon-instagram"></use>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <svg width="20" height="20">
+                <use href="/images/icons.svg#icon-youtube"></use>
+              </svg>
+            </a>
+          </li>
+        </ul>
 
-      <!-- Social Links (Desktop) -->
-      <ul class="social-list desktop-social">
-        <li>
-          <a href="https://www.facebook.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-            <svg width="20" height="20">
-              <use href="/images/icons.svg#icon-facebook"></use>
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a href="https://www.instagram.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <svg width="20" height="20">
-              <use href="/images/icons.svg#icon-instagram"></use>
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a href="https://www.youtube.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-            <svg width="20" height="20">
-              <use href="/images/icons.svg#icon-youtube"></use>
-            </svg>
-          </a>
-        </li>
-      </ul>
+        <!-- Маленька картинка ПІД соціалками -->
+        <div class="header-small-image">
+          <img src="/images/hero-fitness-smoll.jpg" alt="Workout" width="168" height="100">
+        </div>
+
+        <!-- Теги ПІД картинкою -->
+        <div class="header-tags">
+          <span class="tag">#Sport</span>
+          <span class="tag">#Healthy</span>
+          <span class="tag">#Workout</span>
+          <span class="tag">#Diet</span>
+        </div>
+      </div>
 
       <!-- Mobile Menu Button -->
       <button class="burger-btn" aria-label="Open menu">

@@ -1,11 +1,11 @@
-/* src/css/styles.css - FINAL VERSION WITH NEW LAYOUT */
+/* src/css/styles.css - FINAL CORRECTED VERSION */
 @import 'modern-normalize/modern-normalize.css';
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
 
-/* Variables */
+/* Variables - ЧОРНО-БІЛІ КНОПКИ */
 :root {
   --primary-color: #242424;
-  --accent-color: #EEA10C;
+  --accent-color: #242424; /* БУЛО #EEA10C - ТЕПЕР ЧОРНИЙ */
   --text-color: #242424;
   --bg-color: #F4F4F4;
   --white: #FFFFFF;
@@ -40,10 +40,11 @@ body {
   }
 }
 
-/* Header */
+/* Header - 28px від верху */
 .header {
   background-color: var(--white);
-  padding: 20px 0;
+  padding-top: 28px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #e0e0e0;
   position: sticky;
   top: 0;
@@ -53,42 +54,20 @@ body {
 .header-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 20px;
 }
 
+/* Logo - 42px */
 .logo {
-  font-size: 20px;
+  font-size: 42px;
   font-weight: bold;
   text-decoration: none;
   color: var(--primary-color);
+  line-height: 1;
 }
 
-.logo svg {
-  width: 126px;
-  height: 20px;
-  fill: var(--primary-color);
-}
-
-/* Header Small Image - тільки на desktop */
-.header-small-image {
-  display: none;
-}
-
-@media (min-width: 1024px) {
-  .header-small-image {
-    display: block;
-  }
-  
-  .header-small-image img {
-    width: 168px;
-    height: 100px;
-    border-radius: 12px;
-    object-fit: cover;
-  }
-}
-
-/* Navigation */
+/* Navigation - по центру, чорна активна/біла неактивна */
 .desktop-nav,
 .desktop-social {
   display: none;
@@ -103,16 +82,17 @@ body {
   padding: 4px;
   height: 52px;
   align-items: center;
+  justify-content: center;
 }
 
 .nav-list li {
-  flex: 1;
+  flex: 0 0 auto;
 }
 
 .nav-link {
   display: block;
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--white); /* БІЛА неактивна */
   font-weight: 500;
   transition: all 0.3s;
   padding: 12px 32px;
@@ -124,8 +104,8 @@ body {
 
 .nav-link:hover,
 .nav-link.active {
-  background-color: var(--accent-color);
-  color: var(--white);
+  background-color: var(--white); /* БІЛА активна */
+  color: var(--primary-color); /* ЧОРНИЙ текст */
 }
 
 /* Burger Menu */
@@ -144,6 +124,87 @@ body {
   height: 28px;
   stroke: var(--primary-color);
   fill: none;
+}
+
+/* Header Right: Social → Image → Tags (вертикально) */
+.header-right {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+  }
+}
+
+/* Social Links */
+.social-list {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #e0e0e0;
+  border-radius: 50%;
+  transition: border-color 0.3s;
+}
+
+.social-link:hover {
+  border-color: var(--primary-color);
+}
+
+.social-link svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--primary-color);
+}
+
+/* Header Small Image - ПІД соціалками */
+.header-small-image {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .header-small-image {
+    display: block;
+  }
+  
+  .header-small-image img {
+    width: 168px;
+    height: 100px;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+}
+
+/* Header Tags - ПІД картинкою */
+.header-tags {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .header-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    max-width: 168px;
+  }
+}
+
+.tag {
+  padding: 6px 14px;
+  background-color: var(--light-gray);
+  border-radius: 20px;
+  font-size: 14px;
 }
 
 /* Mobile Menu */
@@ -223,45 +284,55 @@ body {
   margin-top: auto;
 }
 
-/* Social Links */
-.social-list {
-  list-style: none;
-  display: flex;
-  gap: 15px;
+/* Hero Text Section - ЛІВОРУЧ НАД великою картинкою */
+.hero-text-section {
+  padding: 32px 0 24px;
+  background-color: var(--white);
 }
 
-.social-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border: 1px solid #e0e0e0;
-  border-radius: 50%;
-  transition: border-color 0.3s;
+.hero-text-content {
+  max-width: 600px;
 }
 
-.social-link:hover {
-  border-color: var(--accent-color);
+.hero-text-content h1 {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 16px;
 }
 
-.social-link svg {
-  width: 20px;
-  height: 20px;
-  fill: var(--primary-color);
+.hero-text-content h1 .accent {
+  color: var(--gray); /* Тепер сірий замість помаранчевого */
 }
 
-/* Hero Full Width - Велика картинка 1376×350 */
+.hero-text-content h4 {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--gray);
+  line-height: 1.5;
+}
+
+@media (max-width: 1023px) {
+  .hero-text-content h1 {
+    font-size: 32px;
+  }
+  
+  .hero-text-content h4 {
+    font-size: 16px;
+  }
+}
+
+/* Hero Full Width - ВІД КРАЮ ДО КРАЮ (БЕЗ padding!) */
 .hero-full-width {
-  padding: 32px 0;
+  width: 100%;
+  padding: 0;
   background-color: var(--white);
 }
 
 .hero-full-width img {
   width: 100%;
-  max-width: 1376px;
+  max-width: 100%; /* ПОВНА ШИРИНА */
   height: auto;
-  border-radius: 12px;
   display: block;
   margin: 0 auto;
   object-fit: cover;
@@ -270,6 +341,7 @@ body {
 @media (min-width: 1024px) {
   .hero-full-width img {
     height: 350px;
+    max-width: 1376px;
   }
 }
 
@@ -298,7 +370,7 @@ body {
   }
 }
 
-/* Filter Tabs */
+/* Filter Tabs - ЧОРНО-БІЛІ */
 .filter-tabs {
   display: flex;
   gap: 10px;
@@ -324,9 +396,9 @@ body {
 
 .filter-tab.active,
 .filter-tab:hover {
-  background-color: var(--accent-color);
+  background-color: var(--primary-color); /* ЧОРНИЙ */
   color: var(--white);
-  border-color: var(--accent-color);
+  border-color: var(--primary-color);
 }
 
 /* Main Content Grid */
@@ -348,7 +420,7 @@ body {
   }
 }
 
-/* ЛІВА КОЛОНКА */
+/* ЛІВА КОЛОНКА (БЕЗ маленької картинки 168×100!) */
 .sidebar-left {
   display: flex;
   flex-direction: column;
@@ -396,15 +468,6 @@ body {
   font-size: 14px;
 }
 
-/* Small Preview 168×100 */
-.small-preview img {
-  width: 100%;
-  max-width: 168px;
-  height: 100px;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
 /* Medium Image 444×262 */
 .medium-image {
   width: 100%;
@@ -437,7 +500,7 @@ body {
 .info-card-title {
   font-size: 48px;
   font-weight: 700;
-  color: var(--accent-color);
+  color: var(--primary-color); /* ЧОРНИЙ */
   line-height: 1.1;
   margin: 0;
 }
@@ -583,7 +646,7 @@ body {
 }
 
 .star {
-  color: var(--accent-color);
+  color: var(--primary-color); /* ЧОРНИЙ */
   font-size: 14px;
 }
 
@@ -591,12 +654,13 @@ body {
   color: #ddd;
 }
 
+/* Exercise Start Button - ЧОРНО-БІЛИЙ */
 .exercise-start-btn {
   position: absolute;
   top: 16px;
   right: 16px;
   padding: 8px 16px;
-  background-color: var(--accent-color);
+  background-color: var(--primary-color); /* ЧОРНИЙ */
   color: var(--white);
   border: none;
   border-radius: 30px;
@@ -607,7 +671,7 @@ body {
 }
 
 .exercise-start-btn:hover {
-  background-color: #d89000;
+  background-color: #404040; /* ТЕМНО-СІРИЙ */
 }
 
 .exercise-title h3 {
@@ -636,7 +700,7 @@ body {
   font-weight: 600;
 }
 
-/* Pagination */
+/* Pagination - ЧОРНО-БІЛІ КНОПКИ */
 .pagination {
   display: flex;
   justify-content: center;
@@ -659,9 +723,9 @@ body {
 
 .pagination-btn.active,
 .pagination-btn:hover {
-  background-color: var(--accent-color);
+  background-color: var(--primary-color); /* ЧОРНИЙ */
   color: var(--white);
-  border-color: var(--accent-color);
+  border-color: var(--primary-color);
 }
 
 .pagination-dots {
@@ -776,6 +840,7 @@ body {
   flex-wrap: wrap;
 }
 
+/* Modal Buttons - ЧОРНО-БІЛІ */
 .btn-favorite,
 .btn-rating {
   flex: 1;
@@ -795,18 +860,18 @@ body {
 }
 
 .btn-favorite.is-favorite {
-  background-color: var(--accent-color);
+  background-color: var(--primary-color); /* ЧОРНИЙ */
   color: var(--white);
 }
 
 .btn-rating {
-  background-color: var(--accent-color);
+  background-color: var(--primary-color); /* ЧОРНИЙ */
   color: var(--white);
 }
 
 .btn-rating:hover,
 .btn-favorite.is-favorite:hover {
-  background-color: #d89000;
+  background-color: #404040; /* ТЕМНО-СІРИЙ */
 }
 
 /* Rating Modal */
@@ -853,7 +918,7 @@ body {
 }
 
 .rating-star-label .star.filled {
-  color: var(--accent-color);
+  color: var(--primary-color); /* ЧОРНИЙ */
 }
 
 .rating-email {
@@ -865,7 +930,7 @@ body {
 
 .btn-submit-rating {
   padding: 12px 24px;
-  background-color: var(--accent-color);
+  background-color: var(--primary-color); /* ЧОРНИЙ */
   color: var(--white);
   border: none;
   border-radius: 30px;
@@ -875,7 +940,7 @@ body {
 }
 
 .btn-submit-rating:hover {
-  background-color: #d89000;
+  background-color: #404040;
 }
 
 /* Footer */
@@ -923,7 +988,7 @@ body {
 }
 
 .footer-social .social-link:hover {
-  border-color: var(--accent-color);
+  border-color: var(--white);
 }
 
 .footer-middle {
@@ -977,8 +1042,8 @@ body {
 
 .btn-subscribe {
   padding: 12px 24px;
-  background-color: var(--accent-color);
-  color: var(--white);
+  background-color: var(--white); /* БІЛИЙ */
+  color: var(--primary-color); /* ЧОРНИЙ ТЕКСТ */
   border: none;
   border-radius: 30px;
   cursor: pointer;
@@ -988,7 +1053,7 @@ body {
 }
 
 .btn-subscribe:hover {
-  background-color: #d89000;
+  background-color: #f0f0f0;
 }
 
 .subscription-message {
@@ -1070,7 +1135,7 @@ body {
 
 .favorite-start-btn {
   padding: 8px 16px;
-  background-color: var(--accent-color);
+  background-color: var(--primary-color); /* ЧОРНИЙ */
   color: var(--white);
   border: none;
   border-radius: 30px;
@@ -1082,7 +1147,7 @@ body {
 }
 
 .favorite-start-btn:hover {
-  background-color: #d89000;
+  background-color: #404040;
 }
 
 .favorite-title {
@@ -1130,7 +1195,7 @@ body {
 .btn-primary {
   display: inline-block;
   padding: 12px 28px;
-  background-color: var(--accent-color);
+  background-color: var(--primary-color); /* ЧОРНИЙ */
   color: var(--white);
   text-decoration: none;
   border-radius: 30px;
@@ -1139,7 +1204,7 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #d89000;
+  background-color: #404040;
 }
 
 /* Loader */
