@@ -16,74 +16,75 @@
 
   <!-- Main Content -->
   <main>
-    <!-- Hero Section -->
-    <section class="hero-section">
-  <div class="container">
-    <div class="hero-content">
-      <!-- Текст зверху -->
-      <h1 class="hero-title">Get <span class="accent">Body</span> in shape, Stay healthy</h1>
-      <p class="hero-description">
-        Transform your body and mind with personalized workouts. 
-        Start your fitness journey today!
-      </p>
-      
-      <!-- Маленька картинка + теги -->
-      <div class="hero-bottom-row">
-        <div class="hero-small-image">
-          <img
-            src="/images/hero-fitness-smoll.jpg"
-            alt="Workout preview"
-            width="168"
-            height="100"
-          />
-        </div>
-        <div class="hero-tags">
-          <span class="tag">#Sport</span>
-          <span class="tag">#Healthy</span>
-          <span class="tag">#Workout</span>
-          <span class="tag">#Diet</span>
-        </div>
-      </div>
-      
-      <!-- ВЕЛИКА КАРТИНКА ВІДРАЗУ ТУТ, ПІД ТЕКСТОМ -->
-      <div class="hero-image-large">
+    
+    <!-- Велика картинка 1376×350 на всю ширину -->
+    <section class="hero-full-width">
+      <div class="container">
         <img 
           src="/images/hero-fitness.jpg"
-          srcset="/images/hero-fitness.jpg 1x, /images/hero-fitness@2x.jpg 2x"
-          alt="People doing fitness exercises"
+          alt="Fitness training"
           width="1376"
           height="350"
           loading="eager"
-        />
+        >
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-    <!-- Main Content Grid -->
+    <!-- Exercises header + Filter tabs -->
+    <section class="exercises-filter-header">
+      <div class="container">
+        <div class="filter-header-row">
+          <h2>Exercises</h2>
+          <div id="filter-tabs" class="filter-tabs">
+            <!-- Tabs заповняться через JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Grid: Quote+Cards ліворуч, Exercises праворуч -->
     <section class="main-content">
       <div class="container">
         <div class="content-grid">
-          <!-- Left Column: Quote -->
-          <aside class="quote-column">
-            <div id="quote-container" class="quote-wrapper"></div>
+          
+          <!-- ЛІВА КОЛОНКА -->
+          <aside class="sidebar-left">
             
+            <!-- Quote Card - СТАТИЧНИЙ ТЕКСТ -->
+            <div class="quote-wrapper">
+              <div class="quote-card">
+                <h3 class="quote-title">QUOTE OF THE DAY</h3>
+                <p class="quote-text">A lot of times I find that people who are blessed with the most talent don't ever develop that attitude, and the ones who aren't blessed in that way are the most competitive and have the biggest heart.</p>
+                <p class="quote-author">Tom Brady</p>
+              </div>
+            </div>
+            
+            <!-- Маленька картинка 168×100 -->
+            <div class="small-preview">
+              <img src="/images/hero-fitness-smoll.jpg" alt="Preview" width="168" height="100">
+            </div>
+            
+            <!-- Середня картинка 444×262 -->
+            <div class="medium-image">
+              <img src="/images/hero-fitness@2x.jpg" alt="Workout" width="444" height="262">
+            </div>
+            
+            <!-- 110 Minutes Card -->
             <div class="info-card">
-              <h2 class="info-card-title">110 minutes</h2>
+              <h2 class="info-card-title">110</h2>
+              <p>minutes</p>
               <p>Daily physical activity is essential for maintaining health and fitness</p>
             </div>
+            
           </aside>
-
-          <!-- Right Column: Filters & Exercises -->
+          
+          <!-- ПРАВА КОЛОНКА: Filter content (12 cards) -->
           <div class="exercises-column">
-            <!-- Filters Section -->
-            <div class="filters-section">
-              <h2>Filters</h2>
-              <div id="filter-tabs" class="filter-tabs"></div>
-              <div id="filter-content" class="filter-content"></div>
+            <div id="filter-content" class="filter-content">
+              <!-- 12 filter/exercise cards тут -->
             </div>
-
-            <!-- Exercises Section (спочатку прихована) -->
+            
+            <!-- Exercises Section (коли клікнули на категорію) -->
             <div class="exercises-section" style="display: none;">
               <div class="exercises-header">
                 <h2>Exercises <span id="category-name"></span></h2>
@@ -97,6 +98,7 @@
               <div id="exercises-container" class="exercises-wrapper"></div>
             </div>
           </div>
+          
         </div>
       </div>
     </section>

@@ -1,4 +1,4 @@
-/* src/css/styles.css - FINAL FIGMA-EXACT VERSION */
+/* src/css/styles.css - FINAL VERSION WITH NEW LAYOUT */
 @import 'modern-normalize/modern-normalize.css';
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
 
@@ -54,6 +54,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
 }
 
 .logo {
@@ -67,6 +68,24 @@ body {
   width: 126px;
   height: 20px;
   fill: var(--primary-color);
+}
+
+/* Header Small Image - тільки на desktop */
+.header-small-image {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .header-small-image {
+    display: block;
+  }
+  
+  .header-small-image img {
+    width: 168px;
+    height: 100px;
+    border-radius: 12px;
+    object-fit: cover;
+  }
 }
 
 /* Navigation */
@@ -232,133 +251,116 @@ body {
   fill: var(--primary-color);
 }
 
-/* Hero Section */
-/* Hero Section */
-.hero-section {
-  padding: 40px 0;
+/* Hero Full Width - Велика картинка 1376×350 */
+.hero-full-width {
+  padding: 32px 0;
   background-color: var(--white);
 }
 
-.hero-content {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.hero-title {
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.2;
-  margin: 0;
-}
-
-.hero-title .accent {
-  color: var(--accent-color);
-}
-
-.hero-description {
-  color: var(--gray);
-  font-size: 16px;
-  margin: 0;
-}
-
-.hero-bottom-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.hero-small-image img {
-  width: 168px;
-  height: 100px;
-  object-fit: cover;
+.hero-full-width img {
+  width: 100%;
+  max-width: 1376px;
+  height: auto;
   border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+  object-fit: cover;
 }
 
-.hero-tags {
+@media (min-width: 1024px) {
+  .hero-full-width img {
+    height: 350px;
+  }
+}
+
+/* Exercises Filter Header */
+.exercises-filter-header {
+  padding: 32px 0;
+  background-color: var(--white);
+}
+
+.filter-header-row {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
   flex-wrap: wrap;
-  gap: 8px;
 }
 
-.tag {
-  padding: 6px 14px;
-  background-color: var(--light-gray);
-  border-radius: 20px;
+.filter-header-row h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+@media (min-width: 1024px) {
+  .filter-header-row h2 {
+    padding-left: 32px;
+  }
+}
+
+/* Filter Tabs */
+.filter-tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 1024px) {
+  .filter-tabs {
+    padding-right: 31px;
+  }
+}
+
+.filter-tab {
+  padding: 10px 20px;
+  background-color: var(--white);
+  border: 1px solid #e0e0e0;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
   font-size: 14px;
 }
 
-/* ВЕЛИКА КАРТИНКА - відразу після тегів */
-.hero-image-large {
-  width: 100%;
-  margin-top: 8px;
-}
-
-.hero-image-large img {
-  width: 100%;
-  max-width: 1376px;
-  height: auto;
-  border-radius: 12px;
-  object-fit: cover;
-  display: block;
-  margin: 0 auto;
-}
-
-@media (min-width: 1024px) {
-  .hero-title {
-    font-size: 48px;
-  }
-  
-  .hero-image-large img {
-    height: 350px;
-  }
-}
-
-.hero-image img {
-  width: 100%;
-  max-width: 1376px;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-/* Desktop Hero Layout */
-@media (min-width: 1024px) {
-  .hero-section .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: flex-start;
-  }
-
-  .hero-content h1 {
-    font-size: 48px;
-  }
-
-  .hero-image img {
-    height: 350px;
-  }
+.filter-tab.active,
+.filter-tab:hover {
+  background-color: var(--accent-color);
+  color: var(--white);
+  border-color: var(--accent-color);
 }
 
 /* Main Content Grid */
 .main-content {
-  padding: 30px 0;
+  padding: 0 0 30px 0;
 }
 
 .content-grid {
   display: grid;
+  grid-template-columns: 1fr;
   gap: 20px;
 }
 
-/* Quote Column */
+@media (min-width: 1024px) {
+  .content-grid {
+    grid-template-columns: 444px 1fr;
+    gap: 32px;
+    padding-top: 32px;
+  }
+}
+
+/* ЛІВА КОЛОНКА */
+.sidebar-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Quote Card */
 .quote-wrapper {
   background-color: var(--primary-color);
   color: var(--white);
   padding: 24px;
   border-radius: 12px;
-  margin-bottom: 20px;
   width: 100%;
   max-width: 444px;
   min-height: 315px;
@@ -394,6 +396,35 @@ body {
   font-size: 14px;
 }
 
+/* Small Preview 168×100 */
+.small-preview img {
+  width: 100%;
+  max-width: 168px;
+  height: 100px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* Medium Image 444×262 */
+.medium-image {
+  width: 100%;
+  max-width: 444px;
+}
+
+.medium-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+@media (min-width: 1024px) {
+  .medium-image img {
+    height: 262px;
+  }
+}
+
+/* Info Card (110 minutes) */
 .info-card {
   background-color: var(--white);
   padding: 28px 24px;
@@ -418,37 +449,14 @@ body {
   margin: 0;
 }
 
-/* Filters */
-.filters-section h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.filter-tabs {
+/* ПРАВА КОЛОНКА: Filter Content & Exercises */
+.exercises-column {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 40px;
 }
 
-.filter-tab {
-  padding: 10px 20px;
-  background-color: var(--white);
-  border: 1px solid #e0e0e0;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: all 0.3s;
-  font-weight: 500;
-  font-size: 14px;
-}
-
-.filter-tab.active,
-.filter-tab:hover {
-  background-color: var(--accent-color);
-  color: var(--white);
-  border-color: var(--accent-color);
-}
-
+/* Filter Content (12 cards) */
 .filter-content {
   display: grid;
   grid-template-columns: 1fr;
@@ -512,6 +520,10 @@ body {
 }
 
 /* Exercises Section */
+.exercises-section {
+  margin-top: 20px;
+}
+
 .exercises-header {
   display: flex;
   justify-content: space-between;
@@ -1147,7 +1159,6 @@ body {
 
 /* Responsive */
 @media (min-width: 768px) {
-  .content-grid,
   .favorites-grid-layout {
     grid-template-columns: 280px 1fr;
   }
