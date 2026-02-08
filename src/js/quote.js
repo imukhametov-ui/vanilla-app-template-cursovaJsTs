@@ -21,14 +21,11 @@ class QuoteOfTheDay {
       
       this.container.innerHTML = `
         <div class="quote-card">
-          <div class="quote-text">
-            <p>"${quoteData.quote}"</p>
-          </div>
-          <div class="quote-author">
-            <span>${quoteData.author}</span>
-          </div>
-        </div>
-      `;
+    <h3 class="quote-title">Quote of the day</h3>
+    <p class="quote-text">${quoteData.quote}</p>
+    <p class="quote-author">${quoteData.author}</p>
+  </div>
+`;
     } catch (error) {
       console.error('Failed to load quote:', error);
       this.container.innerHTML = `
