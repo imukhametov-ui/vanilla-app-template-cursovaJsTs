@@ -12,12 +12,31 @@ class Exercises {
     this.filters = {};
   }
 
-setupSearch() {
- 
-  // Не додаємо слухач тут, бо поле може ще не існувати
-  // Замість цього додамо делегування подій на контейнер
+  setupSearch() {
+    // Не додаємо слухач тут, бо поле може ще не існувати
+    // Замість цього додамо делегування подій на контейнер
+  }
 
-}
+  setupFilterListener() {
+    // Слухати події від filters.js
+    document.addEventListener('filterSelected', (e) => {
+      const { filter, name } = e.detail;
+      console.log('Exercises received filter:', filter, name);
+      
+      // Встановити фільтри залежно від типу
+      const filterParams = {};
+      
+      if (filter === 'Muscles') {
+        filterParams.muscles = name;
+      } else if (filter === 'Body parts') {
+        filterParams.bodypart = name;
+      } else if (filter === 'Equipment') {
+        filterParams.equipment = name;
+      }
+      
+      this.setFilters(filterParams);
+    });
+  }
 
   setFilters(filters) {
     this.filters = { ...this.filters, ...filters };
@@ -38,7 +57,7 @@ setupSearch() {
       };
 
       const data = await api.getExercises(params);
-      
+
       this.renderExercises(data.results);
       this.renderPagination(data.totalPages, data.page);
     } catch (error) {
@@ -68,17 +87,17 @@ setupSearch() {
               <span>${exercise.rating.toFixed(1)}</span>
             </div>
           </div>
-          
+
           <div class="exercise-info">
             <button class="exercise-start-btn" data-id="${exercise._id}">
               Start
             </button>
           </div>
-          
+
           <div class="exercise-title">
             <h3>${exercise.name}</h3>
           </div>
-          
+
           <div class="exercise-details">
             <div class="detail-item">
               <span class="label">Burned calories:</span>
@@ -177,7 +196,8 @@ setupSearch() {
 
   init() {
     this.setupSearch();
-    this.loadExercises();
+    this.setupFilterListener(); // ДОДАНО
+    // НЕ викликаємо loadExercises() - чекаємо filterSelected
   }
 }
 

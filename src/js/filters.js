@@ -1,6 +1,5 @@
 // src/js/filters.js
 // Компонент для фільтрів (Muscles, Body parts, Equipment)
-
 import api from './api.js';
 
 class Filters {
@@ -14,21 +13,18 @@ class Filters {
 
   createTabs() {
     if (!this.tabsContainer) return;
-
     const filters = ['Muscles', 'Body parts', 'Equipment'];
-    
     this.tabsContainer.innerHTML = filters
       .map(
         filter => `
-        <button 
-          class="filter-tab ${filter === this.activeFilter ? 'active' : ''}" 
+        <button
+          class="filter-tab ${filter === this.activeFilter ? 'active' : ''}"
           data-filter="${filter}">
           ${filter}
         </button>
       `
       )
       .join('');
-
     this.tabsContainer.querySelectorAll('.filter-tab').forEach(tab => {
       tab.addEventListener('click', e => this.handleTabClick(e));
     });
@@ -37,29 +33,23 @@ class Filters {
   handleTabClick(e) {
     const filter = e.target.dataset.filter;
     if (filter === this.activeFilter) return;
-
     this.activeFilter = filter;
     this.currentPage = 1;
-    
     this.tabsContainer.querySelectorAll('.filter-tab').forEach(tab => {
       tab.classList.toggle('active', tab.dataset.filter === filter);
     });
-
     this.loadFilterData();
   }
 
   async loadFilterData() {
     if (!this.contentContainer) return;
-
     try {
       this.contentContainer.innerHTML = '<div class="loader">Loading...</div>';
-
       const data = await api.getFilters(
         this.activeFilter,
         this.currentPage,
         this.limit
       );
-
       this.renderFilterItems(data.results);
     } catch (error) {
       console.error('Failed to load filter data:', error);
@@ -76,7 +66,6 @@ class Filters {
       this.contentContainer.innerHTML = '<p>No items found</p>';
       return;
     }
-
     this.contentContainer.innerHTML = items
       .map(
         item => `
@@ -92,7 +81,6 @@ class Filters {
       `
       )
       .join('');
-
     this.contentContainer.querySelectorAll('.filter-item').forEach(item => {
       item.addEventListener('click', e => this.handleFilterItemClick(e));
     });
@@ -102,11 +90,48 @@ class Filters {
     const item = e.currentTarget;
     const filterType = item.dataset.filter;
     const filterName = item.dataset.name;
-
     this.onFilterSelect({ type: filterType, name: filterName });
   }
 
   onFilterSelect(filter) {
+    console.log('Filter selected:', filter);
+    
+    // Сховати filter cards
+    if (this.contentContainer) {
+      this.contentContainer.style.display = 'none';
+    }
+    
+    // Показати exercises section
+    const exercisesSection = document.querySelector('.exercises-section');
+    if (exercisesSection) {
+      exercisesSection.style.display = 'block';
+      
+      // Оновити назву категорії
+      const categoryName = document.getElementById('category-name');
+      if (categoryName) {
+        categoryName.textContent = ` / ${filter.name}`;
+      }
+      
+      // Викликати exercises manager
+      document.dispatchEvent(new CustomEvent('filterSelected', { 
+        detail: {
+          filter: filter.type,
+          name: filter.name
+        }
+      }));
+    }
+  }
+
+  showFilterCards() {
+    // Повернутись до filter cards
+    if (this.contentContainer) {
+      this.contentContainer.style.display = 'grid';
+    }
+    
+    const exercisesSection = document.querySelector('.exercises-section');
+    if (exercisesSection) {
+      exercisesSection.style.display = 'none';
+    }
   }
 
   init() {
