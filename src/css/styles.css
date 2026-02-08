@@ -233,50 +233,40 @@ body {
 }
 
 /* Hero Section */
+/* Hero Section */
 .hero-section {
   padding: 40px 0;
   background-color: var(--white);
 }
 
-.hero-section .container {
+.hero-content {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.hero-left {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.hero-text {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.hero-content h1 {
+.hero-title {
   font-size: 32px;
   font-weight: 700;
-  margin-bottom: 15px;
   line-height: 1.2;
+  margin: 0;
 }
 
-.hero-content .accent {
+.hero-title .accent {
   color: var(--accent-color);
 }
 
 .hero-description {
   color: var(--gray);
-  margin-bottom: 20px;
   font-size: 16px;
+  margin: 0;
 }
 
-.hero-small-image {
+.hero-bottom-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .hero-small-image img {
@@ -284,14 +274,12 @@ body {
   height: 100px;
   object-fit: cover;
   border-radius: 12px;
-  flex-shrink: 0;
 }
 
 .hero-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  align-items: flex-start;
 }
 
 .tag {
@@ -301,11 +289,30 @@ body {
   font-size: 14px;
 }
 
-/* Hero Image Wrapper - Centers the 1376px image */
-.hero-image {
-  display: flex;
-  justify-content: center;
+/* ВЕЛИКА КАРТИНКА - відразу після тегів */
+.hero-image-large {
   width: 100%;
+  margin-top: 8px;
+}
+
+.hero-image-large img {
+  width: 100%;
+  max-width: 1376px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: 48px;
+  }
+  
+  .hero-image-large img {
+    height: 350px;
+  }
 }
 
 .hero-image img {
