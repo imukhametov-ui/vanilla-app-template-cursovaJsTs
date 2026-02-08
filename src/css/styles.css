@@ -1,11 +1,11 @@
-/* src/css/styles.css - FINAL CORRECTED VERSION */
+/* src/css/styles.css - FINAL CORRECTED */
 @import 'modern-normalize/modern-normalize.css';
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
 
-/* Variables - ЧОРНО-БІЛІ КНОПКИ */
+/* Variables - ЧОРНО-БІЛІ */
 :root {
   --primary-color: #242424;
-  --accent-color: #242424; /* БУЛО #EEA10C - ТЕПЕР ЧОРНИЙ */
+  --accent-color: #242424;
   --text-color: #242424;
   --bg-color: #F4F4F4;
   --white: #FFFFFF;
@@ -40,7 +40,7 @@ body {
   }
 }
 
-/* Header - 28px від верху */
+/* Header - STICKY (фіксований при скролі) */
 .header {
   background-color: var(--white);
   padding-top: 28px;
@@ -58,16 +58,20 @@ body {
   gap: 20px;
 }
 
-/* Logo - 42px */
+/* Logo - h3 розмір */
 .logo {
-  font-size: 42px;
-  font-weight: bold;
   text-decoration: none;
   color: var(--primary-color);
+}
+
+.logo h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
   line-height: 1;
 }
 
-/* Navigation - по центру, чорна активна/біла неактивна */
+/* Navigation - 265×52px, чорна активна/біла неактивна */
 .desktop-nav,
 .desktop-social {
   display: none;
@@ -80,22 +84,23 @@ body {
   background-color: var(--primary-color);
   border-radius: 30px;
   padding: 4px;
+  width: 265px;
   height: 52px;
   align-items: center;
   justify-content: center;
 }
 
 .nav-list li {
-  flex: 0 0 auto;
+  flex: 1;
 }
 
 .nav-link {
   display: block;
   text-decoration: none;
-  color: var(--white); /* БІЛА неактивна */
+  color: var(--white);
   font-weight: 500;
   transition: all 0.3s;
-  padding: 12px 32px;
+  padding: 12px 24px;
   border-radius: 26px;
   text-align: center;
   line-height: 28px;
@@ -104,8 +109,8 @@ body {
 
 .nav-link:hover,
 .nav-link.active {
-  background-color: var(--white); /* БІЛА активна */
-  color: var(--primary-color); /* ЧОРНИЙ текст */
+  background-color: var(--white);
+  color: var(--primary-color);
 }
 
 /* Burger Menu */
@@ -126,7 +131,7 @@ body {
   fill: none;
 }
 
-/* Header Right: Social → Image → Tags (вертикально) */
+/* Header Right: Social ГОРИЗОНТАЛЬНО → Image → Tags */
 .header-right {
   display: none;
 }
@@ -140,10 +145,11 @@ body {
   }
 }
 
-/* Social Links */
+/* Social Links - ГОРИЗОНТАЛЬНО */
 .social-list {
   list-style: none;
   display: flex;
+  flex-direction: row; /* ГОРИЗОНТАЛЬНО */
   gap: 15px;
 }
 
@@ -271,6 +277,7 @@ body {
   background: none;
   padding: 0;
   height: auto;
+  width: auto;
 }
 
 .mobile-nav .nav-link {
@@ -284,7 +291,7 @@ body {
   margin-top: auto;
 }
 
-/* Hero Text Section - ЛІВОРУЧ НАД великою картинкою */
+/* Hero Text Section */
 .hero-text-section {
   padding: 32px 0 24px;
   background-color: var(--white);
@@ -302,7 +309,7 @@ body {
 }
 
 .hero-text-content h1 .accent {
-  color: var(--gray); /* Тепер сірий замість помаранчевого */
+  color: var(--gray);
 }
 
 .hero-text-content h4 {
@@ -322,7 +329,7 @@ body {
   }
 }
 
-/* Hero Full Width - ВІД КРАЮ ДО КРАЮ (БЕЗ padding!) */
+/* Hero Full Width */
 .hero-full-width {
   width: 100%;
   padding: 0;
@@ -331,7 +338,7 @@ body {
 
 .hero-full-width img {
   width: 100%;
-  max-width: 100%; /* ПОВНА ШИРИНА */
+  max-width: 100%;
   height: auto;
   display: block;
   margin: 0 auto;
@@ -354,7 +361,7 @@ body {
 .filter-header-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 20px;
   flex-wrap: wrap;
 }
@@ -370,11 +377,11 @@ body {
   }
 }
 
-/* Filter Tabs - ЧОРНО-БІЛІ */
+/* Filter Tabs - ПО 2 В РЯДКУ */
 .filter-tabs {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
   gap: 10px;
-  flex-wrap: wrap;
 }
 
 @media (min-width: 1024px) {
@@ -396,7 +403,7 @@ body {
 
 .filter-tab.active,
 .filter-tab:hover {
-  background-color: var(--primary-color); /* ЧОРНИЙ */
+  background-color: var(--primary-color);
   color: var(--white);
   border-color: var(--primary-color);
 }
@@ -420,7 +427,7 @@ body {
   }
 }
 
-/* ЛІВА КОЛОНКА (БЕЗ маленької картинки 168×100!) */
+/* ЛІВА КОЛОНКА */
 .sidebar-left {
   display: flex;
   flex-direction: column;
@@ -500,7 +507,7 @@ body {
 .info-card-title {
   font-size: 48px;
   font-weight: 700;
-  color: var(--primary-color); /* ЧОРНИЙ */
+  color: var(--primary-color);
   line-height: 1.1;
   margin: 0;
 }
@@ -512,7 +519,7 @@ body {
   margin: 0;
 }
 
-/* ПРАВА КОЛОНКА: Filter Content & Exercises */
+/* ПРАВА КОЛОНКА */
 .exercises-column {
   display: flex;
   flex-direction: column;
@@ -540,15 +547,18 @@ body {
   }
 }
 
+/* Filter Item - НАЗВА НА КАРТИНЦІ */
 .filter-item {
   background-color: var(--white);
-  padding: 16px;
+  padding: 0;
   border-radius: 12px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
   height: 242px;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
 }
 
 .filter-item:hover {
@@ -558,28 +568,39 @@ body {
 
 .filter-item-image {
   width: 100%;
-  height: 168px;
-  overflow: hidden;
-  border-radius: 12px;
-  margin-bottom: 12px;
-  flex-shrink: 0;
+  height: 100%;
+  position: relative;
 }
 
 .filter-item-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 12px;
+}
+
+/* НАЗВА НА КАРТИНЦІ В ЦЕНТРІ */
+.filter-item-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+  width: 100%;
+  padding: 0 16px;
 }
 
 .filter-item-info h3 {
-  font-size: 18px;
-  margin-bottom: 5px;
+  font-size: 24px;
+  margin: 0;
+  color: var(--white);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  font-weight: 700;
 }
 
 .filter-item-info p {
-  color: var(--gray);
-  font-size: 12px;
-  text-transform: capitalize;
+  display: none; /* Приховати додаткову інфу */
 }
 
 /* Exercises Section */
@@ -646,7 +667,7 @@ body {
 }
 
 .star {
-  color: var(--primary-color); /* ЧОРНИЙ */
+  color: var(--primary-color);
   font-size: 14px;
 }
 
@@ -654,13 +675,12 @@ body {
   color: #ddd;
 }
 
-/* Exercise Start Button - ЧОРНО-БІЛИЙ */
 .exercise-start-btn {
   position: absolute;
   top: 16px;
   right: 16px;
   padding: 8px 16px;
-  background-color: var(--primary-color); /* ЧОРНИЙ */
+  background-color: var(--primary-color);
   color: var(--white);
   border: none;
   border-radius: 30px;
@@ -671,7 +691,7 @@ body {
 }
 
 .exercise-start-btn:hover {
-  background-color: #404040; /* ТЕМНО-СІРИЙ */
+  background-color: #404040;
 }
 
 .exercise-title h3 {
@@ -700,7 +720,7 @@ body {
   font-weight: 600;
 }
 
-/* Pagination - ЧОРНО-БІЛІ КНОПКИ */
+/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
@@ -723,7 +743,7 @@ body {
 
 .pagination-btn.active,
 .pagination-btn:hover {
-  background-color: var(--primary-color); /* ЧОРНИЙ */
+  background-color: var(--primary-color);
   color: var(--white);
   border-color: var(--primary-color);
 }
@@ -840,7 +860,6 @@ body {
   flex-wrap: wrap;
 }
 
-/* Modal Buttons - ЧОРНО-БІЛІ */
 .btn-favorite,
 .btn-rating {
   flex: 1;
@@ -860,18 +879,18 @@ body {
 }
 
 .btn-favorite.is-favorite {
-  background-color: var(--primary-color); /* ЧОРНИЙ */
+  background-color: var(--primary-color);
   color: var(--white);
 }
 
 .btn-rating {
-  background-color: var(--primary-color); /* ЧОРНИЙ */
+  background-color: var(--primary-color);
   color: var(--white);
 }
 
 .btn-rating:hover,
 .btn-favorite.is-favorite:hover {
-  background-color: #404040; /* ТЕМНО-СІРИЙ */
+  background-color: #404040;
 }
 
 /* Rating Modal */
@@ -918,7 +937,7 @@ body {
 }
 
 .rating-star-label .star.filled {
-  color: var(--primary-color); /* ЧОРНИЙ */
+  color: var(--primary-color);
 }
 
 .rating-email {
@@ -930,7 +949,7 @@ body {
 
 .btn-submit-rating {
   padding: 12px 24px;
-  background-color: var(--primary-color); /* ЧОРНИЙ */
+  background-color: var(--primary-color);
   color: var(--white);
   border: none;
   border-radius: 30px;
@@ -1042,8 +1061,8 @@ body {
 
 .btn-subscribe {
   padding: 12px 24px;
-  background-color: var(--white); /* БІЛИЙ */
-  color: var(--primary-color); /* ЧОРНИЙ ТЕКСТ */
+  background-color: var(--white);
+  color: var(--primary-color);
   border: none;
   border-radius: 30px;
   cursor: pointer;
@@ -1135,7 +1154,7 @@ body {
 
 .favorite-start-btn {
   padding: 8px 16px;
-  background-color: var(--primary-color); /* ЧОРНИЙ */
+  background-color: var(--primary-color);
   color: var(--white);
   border: none;
   border-radius: 30px;
@@ -1195,7 +1214,7 @@ body {
 .btn-primary {
   display: inline-block;
   padding: 12px 28px;
-  background-color: var(--primary-color); /* ЧОРНИЙ */
+  background-color: var(--primary-color);
   color: var(--white);
   text-decoration: none;
   border-radius: 30px;
