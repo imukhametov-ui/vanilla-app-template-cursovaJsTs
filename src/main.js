@@ -1,7 +1,6 @@
 // src/main.js
 import './css/styles.css';
 
-import QuoteOfTheDay from './js/quote.js';
 import Filters from './js/filters.js';
 import Exercises from './js/exercises.js';
 import ExerciseModal from './js/modal.js';

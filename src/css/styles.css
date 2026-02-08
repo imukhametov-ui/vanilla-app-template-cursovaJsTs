@@ -51,12 +51,18 @@ body {
 }
 
 .header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 20px;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  column-gap: 20px;
 }
+.desktop-nav {
+  justify-self: center;
+}
+.header-right {
+  justify-self: end;
+}
+
 
 /* Logo - h3 24px */
 .logo,
@@ -377,11 +383,41 @@ h3.logo,
   }
 }
 
-/* Filter Tabs - 2 per row */
+/* Filter Tabs - АДАПТИВНІ */
 .filter-tabs {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
+  width: 100%;
+}
+
+/* Mobile: повна ширина */
+@media (max-width: 767px) {
+  .filter-tabs {
+    flex-direction: column;
+  }
+  
+  .filter-tab {
+    width: 100%;
+  }
+}
+
+/* Tablet: 2 в рядку */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .filter-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop: 2 в рядку праворуч */
+@media (min-width: 1024px) {
+  .filter-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: flex-end;
+    padding-right: 31px;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -421,11 +457,11 @@ h3.logo,
 
 @media (min-width: 1024px) {
   .content-grid {
-    grid-template-columns: 444px 1fr;
-    gap: 32px;
-    padding-top: 32px;
+    grid-template-columns: 444px minmax(0, 1fr);
   }
 }
+
+
 
 /* Left Sidebar */
 .sidebar-left {
@@ -542,10 +578,12 @@ h3.logo,
 
 @media (min-width: 1024px) {
   .filter-content {
-    grid-template-columns: repeat(3, 290px);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
     gap: 32px;
   }
 }
+
 
 /* Filter Item - NAMES ON IMAGE */
 .filter-item {
