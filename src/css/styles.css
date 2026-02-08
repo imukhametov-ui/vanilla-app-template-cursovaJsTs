@@ -1,8 +1,7 @@
-/* src/css/styles.css - FINAL CORRECTED */
+/* FINAL CORRECTED CSS */
 @import 'modern-normalize/modern-normalize.css';
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
 
-/* Variables - ЧОРНО-БІЛІ */
 :root {
   --primary-color: #242424;
   --accent-color: #242424;
@@ -26,6 +25,7 @@ body {
   color: var(--text-color);
   background-color: var(--bg-color);
   line-height: 1.5;
+  overflow-x: hidden;
 }
 
 .container {
@@ -40,15 +40,14 @@ body {
   }
 }
 
-/* Header - STICKY (фіксований при скролі) */
+/* Header - НЕ STICKY! Звичайний скрол */
 .header {
   background-color: var(--white);
   padding-top: 28px;
   padding-bottom: 20px;
   border-bottom: 1px solid #e0e0e0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  position: relative; /* НЕ sticky! */
+  z-index: 10;
 }
 
 .header-container {
@@ -56,22 +55,22 @@ body {
   justify-content: space-between;
   align-items: flex-start;
   gap: 20px;
+  flex-wrap: nowrap;
 }
 
-/* Logo - h3 розмір */
-.logo {
+/* Logo - h3 24px */
+.logo,
+h3.logo,
+.logo a {
+  font-size: 24px !important;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1;
   text-decoration: none;
   color: var(--primary-color);
 }
 
-.logo h3 {
-  font-size: 24px;
-  font-weight: 700;
-  margin: 0;
-  line-height: 1;
-}
-
-/* Navigation - 265×52px, чорна активна/біла неактивна */
+/* Navigation */
 .desktop-nav,
 .desktop-social {
   display: none;
@@ -88,6 +87,7 @@ body {
   height: 52px;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .nav-list li {
@@ -113,7 +113,7 @@ body {
   color: var(--primary-color);
 }
 
-/* Burger Menu */
+/* Burger */
 .burger-btn {
   background: none;
   border: none;
@@ -131,7 +131,7 @@ body {
   fill: none;
 }
 
-/* Header Right: Social ГОРИЗОНТАЛЬНО → Image → Tags */
+/* Header Right */
 .header-right {
   display: none;
 }
@@ -142,15 +142,17 @@ body {
     flex-direction: column;
     align-items: flex-end;
     gap: 12px;
+    flex-shrink: 0;
   }
 }
 
-/* Social Links - ГОРИЗОНТАЛЬНО */
+/* Social - ГОРИЗОНТАЛЬНО! */
 .social-list {
   list-style: none;
   display: flex;
-  flex-direction: row; /* ГОРИЗОНТАЛЬНО */
+  flex-direction: row !important; /* КРИТИЧНО! */
   gap: 15px;
+  align-items: center;
 }
 
 .social-link {
@@ -162,6 +164,7 @@ body {
   border: 1px solid #e0e0e0;
   border-radius: 50%;
   transition: border-color 0.3s;
+  flex-shrink: 0;
 }
 
 .social-link:hover {
@@ -174,7 +177,7 @@ body {
   fill: var(--primary-color);
 }
 
-/* Header Small Image - ПІД соціалками */
+/* Header Image */
 .header-small-image {
   display: none;
 }
@@ -192,7 +195,7 @@ body {
   }
 }
 
-/* Header Tags - ПІД картинкою */
+/* Header Tags */
 .header-tags {
   display: none;
 }
@@ -244,12 +247,8 @@ body {
 }
 
 @keyframes slideIn {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
 }
 
 .close-menu-btn {
@@ -291,7 +290,7 @@ body {
   margin-top: auto;
 }
 
-/* Hero Text Section */
+/* Hero Text */
 .hero-text-section {
   padding: 32px 0 24px;
   background-color: var(--white);
@@ -334,6 +333,7 @@ body {
   width: 100%;
   padding: 0;
   background-color: var(--white);
+  overflow: hidden;
 }
 
 .hero-full-width img {
@@ -352,7 +352,7 @@ body {
   }
 }
 
-/* Exercises Filter Header */
+/* Filter Header */
 .exercises-filter-header {
   padding: 32px 0;
   background-color: var(--white);
@@ -377,7 +377,7 @@ body {
   }
 }
 
-/* Filter Tabs - ПО 2 В РЯДКУ */
+/* Filter Tabs - 2 per row */
 .filter-tabs {
   display: grid;
   grid-template-columns: repeat(2, auto);
@@ -408,7 +408,7 @@ body {
   border-color: var(--primary-color);
 }
 
-/* Main Content Grid */
+/* Main Content */
 .main-content {
   padding: 0 0 30px 0;
 }
@@ -427,14 +427,14 @@ body {
   }
 }
 
-/* ЛІВА КОЛОНКА */
+/* Left Sidebar */
 .sidebar-left {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-/* Quote Card */
+/* Quote */
 .quote-wrapper {
   background-color: var(--primary-color);
   color: var(--white);
@@ -475,7 +475,7 @@ body {
   font-size: 14px;
 }
 
-/* Medium Image 444×262 */
+/* Medium Image */
 .medium-image {
   width: 100%;
   max-width: 444px;
@@ -494,7 +494,7 @@ body {
   }
 }
 
-/* Info Card (110 minutes) */
+/* Info Card */
 .info-card {
   background-color: var(--white);
   padding: 28px 24px;
@@ -519,14 +519,14 @@ body {
   margin: 0;
 }
 
-/* ПРАВА КОЛОНКА */
+/* Right Column */
 .exercises-column {
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
 
-/* Filter Content (12 cards) */
+/* Filter Content */
 .filter-content {
   display: grid;
   grid-template-columns: 1fr;
@@ -547,7 +547,7 @@ body {
   }
 }
 
-/* Filter Item - НАЗВА НА КАРТИНЦІ */
+/* Filter Item - NAMES ON IMAGE */
 .filter-item {
   background-color: var(--white);
   padding: 0;
@@ -579,7 +579,7 @@ body {
   border-radius: 12px;
 }
 
-/* НАЗВА НА КАРТИНЦІ В ЦЕНТРІ */
+/* NAME ON IMAGE CENTER */
 .filter-item-info {
   position: absolute;
   top: 50%;
@@ -600,10 +600,10 @@ body {
 }
 
 .filter-item-info p {
-  display: none; /* Приховати додаткову інфу */
+  display: none;
 }
 
-/* Exercises Section */
+/* Exercises */
 .exercises-section {
   margin-top: 20px;
 }
@@ -1100,7 +1100,7 @@ body {
   font-size: 13px;
 }
 
-/* Favorites Page */
+/* Favorites */
 .favorites-page {
   padding: 30px 0;
 }

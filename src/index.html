@@ -17,7 +17,7 @@
   <!-- Main Content -->
   <main>
     
-    <!-- Hero Text ліворуч НАД великою картинкою -->
+    <!-- Hero Text -->
     <section class="hero-text-section">
       <div class="container">
         <div class="hero-text-content">
@@ -27,7 +27,7 @@
       </div>
     </section>
 
-    <!-- Велика картинка 1376×350 ВІД КРАЮ ДО КРАЮ -->
+    <!-- Hero Image FULL WIDTH -->
     <section class="hero-full-width">
       <img 
         src="/images/hero-fitness.jpg"
@@ -38,28 +38,27 @@
       >
     </section>
 
-    <!-- Exercises header + Filter tabs (по 2 в рядку) -->
+    <!-- Exercises Header + Filter Tabs -->
     <section class="exercises-filter-header">
       <div class="container">
         <div class="filter-header-row">
           <h2>Exercises</h2>
-          <!-- Filter tabs: Muscles, Body parts в 1 рядку; Equipment в 2 рядку -->
           <div id="filter-tabs" class="filter-tabs">
-            <!-- Tabs заповняться через JS -->
+            <!-- JS fills this -->
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Main Grid: Quote+Cards ліворуч, Exercises праворуч -->
+    <!-- Main Grid -->
     <section class="main-content">
       <div class="container">
         <div class="content-grid">
           
-          <!-- ЛІВА КОЛОНКА -->
+          <!-- LEFT COLUMN -->
           <aside class="sidebar-left">
             
-            <!-- Quote Card - СТАТИЧНИЙ ТЕКСТ -->
+            <!-- Quote Card - STATIC (no JS) -->
             <div class="quote-wrapper">
               <div class="quote-card">
                 <h3 class="quote-title">QUOTE OF THE DAY</h3>
@@ -68,12 +67,12 @@
               </div>
             </div>
             
-            <!-- Середня картинка 444×262 -->
+            <!-- Medium Image -->
             <div class="medium-image">
               <img src="/images/hero-fitness@2x.jpg" alt="Workout" width="444" height="262">
             </div>
             
-            <!-- 110 Minutes Card -->
+            <!-- 110 Minutes -->
             <div class="info-card">
               <h2 class="info-card-title">110</h2>
               <p>minutes</p>
@@ -82,13 +81,13 @@
             
           </aside>
           
-          <!-- ПРАВА КОЛОНКА: Filter content (12 cards з назвами НА картинках) -->
+          <!-- RIGHT COLUMN -->
           <div class="exercises-column">
             <div id="filter-content" class="filter-content">
-              <!-- 12 filter cards - назви НА картинках, не під ними! -->
+              <!-- 12 cards from JS -->
             </div>
             
-            <!-- Exercises Section (коли клікнули на категорію) -->
+            <!-- Exercises Section -->
             <div class="exercises-section" style="display: none;">
               <div class="exercises-header">
                 <h2>Exercises <span id="category-name"></span></h2>
