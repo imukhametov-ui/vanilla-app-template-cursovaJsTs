@@ -25,12 +25,12 @@ class App {
     initHeader();
 
     // Quote (safe init)
-if (typeof QuoteOfTheDay !== 'undefined') {
-  this.quote = new QuoteOfTheDay('#quote-container');
-  this.quote.init();
-} else {
-  console.warn('QuoteOfTheDay is not defined - skipping quote init');
-}
+//if (typeof QuoteOfTheDay !== 'undefined') {
+ // this.quote = new QuoteOfTheDay('#quote-container');
+  //this.quote.init();
+//} else {
+ // console.warn('QuoteOfTheDay is not defined - skipping quote init');
+//}
 
 
     this.filters = new Filters('#filter-tabs', '#filter-content');
