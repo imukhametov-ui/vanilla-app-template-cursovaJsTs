@@ -20,36 +20,31 @@ class App {
   }
 
   init() {
-    console.log('App initialized');
+  console.log('App initialized');
 
-    initHeader();
+  initHeader();
 
-    // Quote (safe init)
-//if (typeof QuoteOfTheDay !== 'undefined') {
- // this.quote = new QuoteOfTheDay('#quote-container');
-  //this.quote.init();
-//} else {
- // console.warn('QuoteOfTheDay is not defined - skipping quote init');
-//}
+  // QUOTE: у тебе статична верстка, тому JS не потрібен
+  // (головне — щоб не було ReferenceError і не ламало ініціалізацію нижче)
 
+  this.filters = new Filters('#filter-tabs', '#filter-content');
 
-    this.filters = new Filters('#filter-tabs', '#filter-content');
-    
-    this.filters.onFilterSelect = (filterData) => {
-      this.showExercisesSection(filterData);
-    };
-    
-    this.filters.init();
+  this.filters.onFilterSelect = (filterData) => {
+    this.showExercisesSection(filterData);
+  };
 
-    this.exercises = new Exercises('#exercises-container', '#search-input');
-    
-    this.exercises.onExerciseSelect = (exerciseId) => {
-      ExerciseModal.open(exerciseId);
-    };
+  this.filters.init();
 
-    this.subscription = new Subscription('#subscription-form');
-    this.subscription.init();
-  }
+  this.exercises = new Exercises('#exercises-container', '#search-input');
+
+  this.exercises.onExerciseSelect = (exerciseId) => {
+    ExerciseModal.open(exerciseId);
+  };
+
+  this.subscription = new Subscription('#subscription-form');
+  this.subscription.init();
+}
+
 
   showExercisesSection(filterData) {
   if (this.filterSection) {
