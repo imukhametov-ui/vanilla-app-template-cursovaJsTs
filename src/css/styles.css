@@ -87,7 +87,7 @@ h3.logo,
   display: flex;
   gap: 0;
   background-color: var(--primary-color);
-  border-radius: 30px;
+  border-radius: 60px;
   padding: 4px;
   width: 265px;
   height: 52px;
@@ -156,11 +156,14 @@ h3.logo,
 .social-list {
   list-style: none;
   display: flex;
-  flex-direction: row !important; /* КРИТИЧНО! */
-  gap: 15px;
+  flex-direction: row;
+  gap: 12px;
   align-items: center;
 }
-
+.header-right .social-list,
+.desktop-social .social-list {
+  flex-direction: row !important;
+}
 .social-link {
   display: flex;
   align-items: center;
@@ -196,7 +199,7 @@ h3.logo,
   .header-small-image img {
     width: 168px;
     height: 100px;
-    border-radius: 12px;
+    border-radius: 20px;
     object-fit: cover;
   }
 }
@@ -387,7 +390,7 @@ h3.logo,
 .filter-tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 20px;
   width: 100%;
 }
 
@@ -457,7 +460,8 @@ h3.logo,
 
 @media (min-width: 1024px) {
   .content-grid {
-    grid-template-columns: 444px minmax(0, 1fr);
+    grid-template-columns: 444px 1fr; /* ✅ БУЛО: 444px minmax(0, 1fr) */
+    gap: 32px;
   }
 }
 
@@ -562,33 +566,22 @@ h3.logo,
   gap: 40px;
 }
 
-/* Filter Content */
 .filter-content {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .filter-content {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
   }
 }
 
-
 @media (min-width: 1024px) {
   .filter-content {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 32px;
-  }
-}
-
-
-@media (min-width: 1024px) {
-  .filter-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    grid-template-columns: repeat(3, 1fr); /* ✅ ТОЧНО 3 колонки */
     gap: 32px;
   }
 }
@@ -1325,34 +1318,255 @@ h3.logo,
   }
 }
 /* ===== HERO (FIGMA-EXACT) ===== */
-.hero {
-  position: relative;
-  width: 100%;
-  height: 350px; /* як у макеті */
-  overflow: hidden;
+/* ===== FIGMA EXACT: Hero Text + Image ===== */
+
+/* Hero Text Section */
+.hero-text-section {
+  padding: 42px 0 32px;
+  background-color: var(--white);
 }
 
-.hero-bg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 25%; /* НЕ ріже голови */
-  display: block;
+.hero-text-content {
+  max-width: 639px;
 }
 
-.hero-content {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-}
-
-.hero-content h1 {
-  max-width: 520px;
+.hero-text-content h1 {
+  font-size: 74px;
+  font-weight: 700;
+  line-height: 1;
   margin-bottom: 16px;
+  font-family: 'DM Sans', sans-serif;
 }
 
-.hero-content p {
-  max-width: 520px;
-  opacity: 0.8;
+.hero-text-content h1 .accent {
+  font-style: italic;
+  color: var(--gray);
+}
+
+.hero-text-content h4 {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--gray);
+  line-height: 1.5;
+}
+
+@media (max-width: 1023px) {
+  .hero-text-content h1 {
+    font-size: 48px;
+  }
+}
+
+/* Hero Full Width - картинка 1376×350 */
+.hero-full-width {
+  width: 100%;
+  padding: 0;
+  margin-bottom: 32px;
+  background-color: var(--white);
+}
+
+.hero-full-width img {
+  width: 100%;
+  max-width: 1376px;
+  height: 350px;
+  display: block;
+  margin: 0 auto;
+  object-fit: cover;
+  object-position: center 40%; /* ✅ БУЛО: center - змінити на center 40% */
+  border-radius: 20px;
+}
+
+@media (max-width: 1023px) {
+  .hero-full-width img {
+    height: 250px;
+  }
+}
+
+/* Exercises з'являються НА МІСЦІ filter cards */
+.exercises-section[style*="display: block"] ~ #filter-content {
+  display: none !important;
+}
+/* === QUICK FIX === */
+
+/* Голови НЕ обрізані */
+.hero-full-width img {
+  object-position: center 35% !important;
+}
+
+/* 3 колонки filter cards */
+@media (min-width: 1024px) {
+  .filter-content {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 32px !important;
+  }
+}
+
+/* Container правильний */
+.container {
+  max-width: 1280px !important;
+  padding: 0 32px !important;
+}
+
+/* Hero h1 більший */
+.hero-text-content h1 {
+  font-size: 74px !important;
+}
+
+/* Filter item правильна висота */
+.filter-item {
+  height: 242px !important;
+  min-height: 242px !important;
+}
+/* === ШВИДКІ ВИПРАВЛЕННЯ - ДОДАЙТЕ В КІНЕЦЬ CSS === */
+
+/* 1. HEADER PIXEL-PERFECT */
+/* Logo - 18px */
+.logo,
+h3.logo,
+.logo a {
+  font-size: 18px;
+}  
+
+.nav-list {
+  width: 265px !important;
+  height: 52px !important;
+  border-radius: 60px !important;
+}
+
+.social-list {
+  flex-direction: row !important;
+  gap: 12px !important;
+}
+
+.social-link {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.header-small-image img {
+  width: 168px !important;
+  height: 100px !important;
+  border-radius: 20px !important;
+}
+
+.header-tags {
+  gap: 8px !important;
+  max-width: 197px !important;
+}
+
+/* 2. FILTER TABS */
+.filter-tabs {
+  gap: 20px !important;
+}
+
+.filter-tab {
+  height: 32px !important;
+  padding: 6px 20px !important;
+}
+
+@media (min-width: 1024px) {
+  .filter-tabs {
+    justify-content: flex-end !important;
+  }
+}
+
+/* 3. HERO IMAGE - ГОЛОВИ НЕ ОБРІЗАНІ */
+.hero-full-width img {
+  object-position: center 35% !important;
+  border-radius: 20px !important;
+}
+
+/* 4. FILTER CARDS - 3 КОЛОНКИ */
+@media (min-width: 1024px) {
+  .filter-content {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 32px !important;
+  }
+}
+
+.filter-item {
+  height: 242px !important;
+}
+
+.filter-item-image img {
+  border-radius: 20px !important;
+}
+
+/* 5. CONTAINER */
+.container {
+  max-width: 1280px !important;
+  padding: 0 32px !important;
+}
+
+/* 6. CONTENT GRID - 444px LEFT */
+@media (min-width: 1024px) {
+  .content-grid {
+    grid-template-columns: 444px 1fr !important;
+    gap: 32px !important;
+  }
+}
+
+/* 7. HERO TEXT */
+.hero-text-content h1 {
+  font-size: 74px !important;
+}
+
+@media (max-width: 1023px) {
+  .hero-text-content h1 {
+    font-size: 48px !important;
+  }
+}
+
+/* 8. EXERCISES З'ЯВЛЯЮТЬСЯ НА МІСЦІ FILTER */
+.exercises-section[style*="display: block"] ~ #filter-content {
+  display: none !important;
+}
+/* ========== ВИПРАВЛЕННЯ SOCIAL ICONS ========== */
+
+/* 1. HEADER SOCIAL - ГОРИЗОНТАЛЬНО */
+.header-right .social-list,
+.desktop-social .social-list {
+  flex-direction: row !important;
+  gap: 12px !important;
+}
+
+/* 2. FOOTER SOCIAL - ЛІВОРУЧ */
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start !important; /* Не center */
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-logo {
+  order: 1; /* Logo перший */
+}
+
+.footer-social {
+  order: 2; /* Social другий (ліворуч) */
+  margin-right: auto; /* Притиснути вліво */
+}
+
+/* Якщо є третій елемент - він буде праворуч */
+.footer-top > *:last-child:not(.footer-social):not(.footer-logo) {
+  order: 3;
+  margin-left: auto;
+}
+
+/* Footer social ГОРИЗОНТАЛЬНО (вже є, але перевіримо) */
+.footer-social .social-list {
+  flex-direction: row !important;
+  gap: 15px !important;
+}
+
+.footer-social .social-link {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.footer-social .social-link svg {
+  fill: var(--white);
+}
+
+.footer-social .social-link:hover {
+  border-color: var(--white);
 }
