@@ -1,0 +1,62 @@
+/* ========================================
+   SIDEBAR COMPONENTS
+   Left column: Quote + Medium Image + Info Card
+   ======================================== */
+
+.sidebar-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* === MEDIUM IMAGE === */
+/* Size: 444×262, Radius: 20px */
+.medium-image {
+  width: 100%;
+  max-width: 444px;
+}
+
+.medium-image img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-medium);
+  object-fit: cover;
+}
+
+@media (min-width: 1024px) {
+  .medium-image img {
+    height: 262px;
+  }
+}
+
+/* === INFO CARD (110 minutes) === */
+.info-card {
+  background-color: var(--white);
+  padding: 32px 28px;
+  border-radius: var(--radius-medium);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info-card-title {
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--primary-color);
+  line-height: 1;
+  margin: 0;
+}
+
+.info-card p {
+  font-size: 16px;
+  color: var(--gray);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .info-card-title {
+    font-size: 48px;
+  }
+}

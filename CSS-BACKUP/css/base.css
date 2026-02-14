@@ -30,3 +30,21 @@ main {
 main:has(.back-link) {
   text-align: center;
 }
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+:root {
+  --primary-color: #242424;
+  --accent-color: #242424;
+  --text-color: #242424;
+  --bg-color: #F4F4F4;
+  --white: #FFFFFF;
+  --gray: #5a5a5a;
+  --light-gray: #F4F4F4;
+  --error: #D32F2F;
+  --success: #388E3C;
+}

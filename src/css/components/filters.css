@@ -1,0 +1,135 @@
+/* ========================================
+   FILTERS COMPONENT
+   Filter tabs + Filter cards
+   ======================================== */
+
+/* === FILTER HEADER === */
+.exercises-filter-header {
+  padding: 32px 0;
+  background-color: var(--white);
+}
+
+.filter-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.filter-header-row h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+/* === FILTER TABS === */
+/* Size: 264×32 (Hug), Gap: 20px */
+.filter-tabs {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.filter-tab {
+  padding: 6px 20px;
+  background-color: var(--white);
+  border: 1px solid #e0e0e0;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 500;
+  font-size: 14px;
+  white-space: nowrap;
+  height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.filter-tab.active,
+.filter-tab:hover {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border-color: var(--primary-color);
+}
+
+/* === FILTER CARDS === */
+/* Card size: 444×242, Gap: 32px, 3 columns */
+.filter-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.filter-item {
+  background-color: var(--white);
+  padding: 0;
+  border-radius: var(--radius-medium);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  height: 242px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.filter-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.filter-item-image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.filter-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-medium);
+}
+
+/* Filter name ON image (center) */
+.filter-item-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+  width: 100%;
+  padding: 0 24px;
+}
+
+.filter-item-info h3 {
+  font-size: 28px;
+  margin: 0;
+  color: var(--white);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.filter-item-info p {
+  display: none;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .filter-tabs {
+    gap: 12px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .filter-tabs {
+    justify-content: flex-end;
+  }
+  
+  .filter-content {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+}

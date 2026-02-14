@@ -4,7 +4,7 @@ import './css/styles.css';
 import Filters from './js/filters.js';
 import Exercises from './js/exercises.js';
 import ExerciseModal from './js/modal.js';
-import Subscription from './js/subscription.js';
+//import Subscription from './js/subscription.js';
 import { initHeader } from './js/header.js';
 
 class App {
@@ -41,8 +41,8 @@ class App {
     ExerciseModal.open(exerciseId);
   };
 
-  this.subscription = new Subscription('#subscription-form');
-  this.subscription.init();
+  //this.subscription = new Subscription('#subscription-form');
+  //this.subscription.init();
 }
 
 

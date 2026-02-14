@@ -17,26 +17,27 @@
   <!-- Main Content -->
   <main>
     
-    <!-- Hero Text -->
-    <section class="hero-text-section">
-      <div class="container">
-        <div class="hero-text-content">
-          <h1>Get <span class="accent">Body</span> in shape, Stay healthy</h1>
-          <h4>Transform your physique and embrace a healthier lifestyle with our comprehensive fitness and nutrition support</h4>
-        </div>
-      </div>
-    </section>
+   <!-- Hero Text ліворуч НАД великою картинкою -->
+<section class="hero-text-section">
+  <div class="container">
+    <div class="hero-text-content">
+      <h1>Get <span class="accent">Body</span> in shape, Stay healthy</h1>
+      <h4>Transform your physique and embrace a healthier lifestyle with our comprehensive fitness and nutrition support</h4>
+    </div>
+  </div>
+</section>
 
-    <!-- Hero Image FULL WIDTH -->
-    <section class="hero-full-width">
-      <img 
-        src="/images/hero-fitness.jpg"
-        alt="Fitness training"
-        width="1376"
-        height="350"
-        loading="eager"
-      >
-    </section>
+<!-- Hero Image - 1376×350px ВІД КРАЮ ДО КРАЮ -->
+<section class="hero-full-width">
+  <img 
+    src="/images/hero-fitness.jpg"
+    alt="Fitness training"
+    width="1376"
+    height="350"
+    loading="eager"
+  >
+</section>
+
 
     <!-- Exercises Header + Filter Tabs -->
     <section class="exercises-filter-header">
@@ -82,26 +83,27 @@
           </aside>
           
           <!-- RIGHT COLUMN -->
-          <div class="exercises-column">
-            <div id="filter-content" class="filter-content">
-              <!-- 12 cards from JS -->
-            </div>
-            
-            <!-- Exercises Section -->
-            <div class="exercises-section" style="display: none;">
-              <div class="exercises-header">
-                <h2>Exercises <span id="category-name"></span></h2>
-                <input 
-                  type="text" 
-                  id="search-input" 
-                  class="search-input"
-                  placeholder="Search exercises..."
-                />
-              </div>
-              <div id="exercises-container" class="exercises-wrapper"></div>
-            </div>
-          </div>
-          
+        <div class="exercises-column">
+  <!-- EXERCISES ПЕРШИЙ -->
+  <div class="exercises-section" style="display: none;">
+    <div class="exercises-header">
+      <h2>Exercises <span id="category-name"></span></h2>
+      <input 
+        type="text" 
+        id="search-input" 
+        class="search-input"
+        placeholder="Search exercises..."
+      />
+    </div>
+    <div id="exercises-container" class="exercises-wrapper"></div>
+  </div>
+  
+  <!-- FILTER ДРУГИЙ -->
+  <div id="filter-content" class="filter-content">
+    <!-- 12 cards from JS -->
+  </div>
+</div>
+       
         </div>
       </div>
     </section>

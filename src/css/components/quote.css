@@ -1,0 +1,52 @@
+/* ========================================
+   QUOTE CARD COMPONENT
+   Size: 444×315, Padding: 40px 32px
+   ======================================== */
+
+.quote-wrapper {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 40px 32px;
+  border-radius: var(--radius-medium);
+  width: 100%;
+  max-width: 444px;
+  min-height: 315px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.quote-card {
+  text-align: left;
+}
+
+.quote-title {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 20px;
+}
+
+.quote-text {
+  font-style: italic;
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
+}
+
+.quote-author {
+  font-weight: 500;
+  color: var(--white);
+  font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .quote-wrapper {
+    min-height: auto;
+    padding: 24px 20px;
+  }
+}

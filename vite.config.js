@@ -4,7 +4,7 @@ import FullReload from 'vite-plugin-full-reload';
 
 export default defineConfig({
   root: 'src',
-  base: '/vanilla-app-template-cursovaJsTs/',
+  base: '/',
   build: {
     outDir: '../dist',
     emptyOutDir: true,
