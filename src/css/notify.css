@@ -1,0 +1,79 @@
+/* Position notyf container as popover in top layer */
+.notyf[popover] {
+  inset: unset !important;
+  top: 0 !important;
+  right: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+
+.notyf__toast {
+  border-radius: 30px !important;
+  border: 1px solid var(--color-light-30) !important;
+  background-color: var(--color-dark) !important;
+  max-width: 400px !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Shine animation sweep effect */
+.notyf__toast::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  transform: translateX(-100%) skewX(-25deg);
+  animation: shine 3s infinite;
+  pointer-events: none;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-150%) skewX(-25deg);
+  }
+  30%,
+  100% {
+    transform: translateX(150%) skewX(-25deg);
+  }
+}
+
+.notyf__message {
+  font-family: var(--font-main) !important;
+  font-size: var(--fs-14) !important;
+  line-height: var(--lh-18) !important;
+  color: var(--color-light) !important;
+  font-weight: 400 !important;
+  position: relative;
+  z-index: 1;
+}
+
+.notyf__icon--success,
+.notyf__icon--error {
+  background-color: #4e4e4e !important;
+  border-radius: 50% !important;
+}
+.notyf__icon--success {
+  color: #3cb371 !important;
+}
+
+.notyf__icon--error {
+  color: var(--color-error) !important;
+}
+
+@media screen and (min-width: 768px) {
+  .notyf__message {
+    font-size: var(--fs-16) !important;
+    line-height: var(--lh-24) !important;
+  }
+}

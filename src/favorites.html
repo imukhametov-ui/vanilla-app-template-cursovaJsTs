@@ -1,48 +1,147 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link rel="icon" type="image/svg+xml" href="/vanilla-app-template-cursovaJsTs/favicon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://your-energy.b.goit.study">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Your Energy - personalized fitness workouts and exercises for a healthy lifestyle">
-  <title>Favorites - Your Energy</title>
-</head>
-<body>
-  <!-- Header -->
-  <load src="partials/header.html" />
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites | Your Energy</title>
+    <!-- DNS prefetch and preconnect for API -->
+    <link rel="dns-prefetch" href="https://your-energy.b.goit.study">
+    <link rel="preconnect" href="https://your-energy.b.goit.study" crossorigin>
 
-  <!-- Main Content -->
-  <main>
-    <section class="favorites-page">
-      <div class="container">
-        <div class="favorites-grid-layout">
-          <!-- Left Column: Quote & Info -->
-          <aside class="favorites-info">
-            <div id="quote-container" class="quote-wrapper"></div>
-            
-            <div class="info-card">
-              <h3>110 minutes</h3>
-              <p>Daily physical activity is essential for maintaining health and fitness</p>
+    <!-- Preconnect for images CDN -->
+    <link rel="dns-prefetch" href="https://ftp.goit.study">
+    <link rel="preconnect" href="https://ftp.goit.study" crossorigin>
+
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="./fonts/DMSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./fonts/DMSans-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./fonts/DMSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+
+    <!-- Async CSS loading: preload + onload pattern -->
+    <link rel="preload" href="./css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="./css/main.css"></noscript>
+    <script type="module" src="./main.js"></script>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  </head>
+  <body>
+    <load src="partials/icons.html" />
+    <load src="partials/header.html" />
+
+    <main class="main favorites-page">
+      <div class="filters-section">
+        <div class="container">
+          <h2 class="section-title" id="favorites-heading">Favorites</h2>
+        </div>
+      </div>
+
+      <div class="favorites-content">
+        <div class="container">
+          <aside class="favorites-sidebar" aria-label="Additional information">
+            <load src="partials/quote.html" />
+            <div class="favorites-info-card">
+              <div class="favorites-info-header">
+                <span class="favorites-info-icon" aria-hidden="true">
+                  <svg width="20" height="20">
+                    <use href="#icon-info"></use>
+                  </svg>
+                </span>
+                <div class="favorites-info-content">
+                  <p class="favorites-info-value">110 min</p>
+                  <p class="favorites-info-label">Daily norm of sports</p>
+                </div>
+              </div>
+            </div>
+            <div class="favorites-image-card" aria-hidden="true">
+              <picture>
+                <source
+                  media="(max-width: 767px)"
+                  type="image/avif"
+                  srcset="
+                    /img/avif/mobile_fav_sitebar_img.avif    1x,
+                    /img/avif/mobile_fav_sitebar_img@2x.avif 2x,
+                    /img/avif/mobile_fav_sitebar_img@3x.avif 3x
+                  "
+                >
+                <source
+                  media="(max-width: 767px)"
+                  type="image/jpeg"
+                  srcset="
+                    /img/mobile_fav_sitebar_img.jpg    1x,
+                    /img/mobile_fav_sitebar_img@2x.jpg 2x,
+                    /img/mobile_fav_sitebar_img@3x.jpg 3x
+                  "
+                >
+                <source
+                  media="(min-width: 768px) and (max-width: 1439px)"
+                  type="image/avif"
+                  srcset="
+                    /img/avif/tab_fav_sitebar_img.avif    1x,
+                    /img/avif/tab_fav_sitebar_img@2x.avif 2x,
+                    /img/avif/tab_fav_sitebar_img@3x.avif 3x
+                  "
+                >
+                <source
+                  media="(min-width: 768px) and (max-width: 1439px)"
+                  type="image/jpeg"
+                  srcset="
+                    /img/tab_fav_sitebar_img.jpg    1x,
+                    /img/tab_fav_sitebar_img@2x.jpg 2x,
+                    /img/tab_fav_sitebar_img@3x.jpg 3x
+                  "
+                >
+                <source
+                  media="(min-width: 1440px)"
+                  type="image/avif"
+                  srcset="
+                    /img/avif/desc_fav_sitebar_img.avif    1x,
+                    /img/avif/desc_fav_sitebar_img@2x.avif 2x,
+                    /img/avif/desc_fav_sitebar_img@3x.avif 3x
+                  "
+                >
+                <source
+                  media="(min-width: 1440px)"
+                  type="image/jpeg"
+                  srcset="
+                    /img/desc_fav_sitebar_img.jpg    1x,
+                    /img/desc_fav_sitebar_img@2x.jpg 2x,
+                    /img/desc_fav_sitebar_img@3x.jpg 3x
+                  "
+                >
+                <img
+                  src="/img/desc_fav_sitebar_img.jpg"
+                  alt="Women doing sports"
+                  class="favorites-image"
+                  width="335"
+                  height="571"
+                  loading="lazy"
+                >
+              </picture>
             </div>
           </aside>
 
-          <!-- Right Column: Favorites List -->
           <div class="favorites-main">
-            <h1 class="page-title">Favorites</h1>
-            <div id="favorites-container" class="favorites-container"></div>
+            <ul
+              id="favorites-container"
+              class="favorites-list"
+              aria-live="polite"
+              aria-busy="false"
+            ></ul>
+            <nav
+              id="favorites-pagination"
+              class="favorites-pagination"
+              aria-label="Favorites pagination"
+            ></nav>
           </div>
         </div>
       </div>
-    </section>
-  </main>
+    </main>
 
-  <!-- Footer -->
-  <load src="partials/footer.html" />
-
-  <!-- Favorites Page JS -->
-  <script type="module" src="/favorites-page.js"></script>
-</body>
+    <load src="partials/exercise-modal.html" />
+    <load src="partials/rating-modal.html" />
+  </body>
 </html>

@@ -1,85 +1,69 @@
-// src/js/quote.js
-// Компонент для відображення цитати дня з кешуванням
+import { getQuote } from './api.js';
+import { renderQuote } from './dom.js';
+import { STORAGE_KEYS } from './constants.js';
 
-import api from './api.js';
+/**
+ * Get today's date in YYYY-MM-DD format
+ */
+function getTodayDate() {
+  const today = new Date();
+  return today.toISOString().split('T')[0];
+}
 
-class QuoteOfTheDay {
-  constructor(containerSelector) {
-    this.container = document.querySelector(containerSelector);
-    this.storageKey = 'dailyQuote';
-  }
+/**
+ * Get cached quote from localStorage
+ */
+function getCachedQuote() {
+  try {
+    const cached = localStorage.getItem(STORAGE_KEYS.QUOTE);
+    if (!cached) return null;
 
-  async render() {
-    if (!this.container) {
-      console.error('Quote container not found');
-      return;
+    const { quote, author, date } = JSON.parse(cached);
+    const today = getTodayDate();
+
+    if (date === today) {
+      return { quote, author };
     }
 
-    try {
-      this.container.innerHTML = '<div class="loader">Loading...</div>';
-      const quoteData = await this.getQuote();
-      
-      this.container.innerHTML = `
-        <div class="quote-card">
-    <h3 class="quote-title">Quote of the day</h3>
-    <p class="quote-text">${quoteData.quote}</p>
-    <p class="quote-author">${quoteData.author}</p>
-  </div>
-`;
-    } catch (error) {
-      console.error('Failed to load quote:', error);
-      this.container.innerHTML = `
-        <div class="error-message">
-          <p>Failed to load quote.</p>
-        </div>
-      `;
-    }
-  }
-
-  async getQuote() {
-    const cached = this.getCachedQuote();
-    if (cached) return cached;
-
-    const freshQuote = await api.getQuote();
-    this.cacheQuote(freshQuote);
-    return freshQuote;
-  }
-
-  getCachedQuote() {
-    try {
-      const stored = localStorage.getItem(this.storageKey);
-      if (!stored) return null;
-
-      const { quote, author, date } = JSON.parse(stored);
-      const today = new Date().toISOString().split('T')[0];
-
-      if (date === today) {
-        return { quote, author };
-      }
-
-      localStorage.removeItem(this.storageKey);
-      return null;
-    } catch (error) {
-      return null;
-    }
-  }
-
-  cacheQuote(quoteData) {
-    try {
-      const dataToStore = {
-        quote: quoteData.quote,
-        author: quoteData.author,
-        date: new Date().toISOString().split('T')[0],
-      };
-      localStorage.setItem(this.storageKey, JSON.stringify(dataToStore));
-    } catch (error) {
-      console.error('Error caching quote:', error);
-    }
-  }
-
-  init() {
-    this.render();
+    localStorage.removeItem(STORAGE_KEYS.QUOTE);
+    return null;
+  } catch (error) {
+    console.error('Error reading cached quote:', error);
+    return null;
   }
 }
 
-export default QuoteOfTheDay;
+/**
+ * Save quote to localStorage
+ */
+function cacheQuote(quote, author) {
+  try {
+    const data = {
+      quote,
+      author,
+      date: getTodayDate(),
+    };
+    localStorage.setItem(STORAGE_KEYS.QUOTE, JSON.stringify(data));
+  } catch (error) {
+    console.error('Error caching quote:', error);
+  }
+}
+
+/**
+ * Initialize Quote of the Day
+ * Checks cache first, otherwise fetches from API
+ */
+export async function initQuote() {
+  try {
+    let quoteData = getCachedQuote();
+
+    if (!quoteData) {
+      quoteData = await getQuote();
+      cacheQuote(quoteData.quote, quoteData.author);
+    }
+
+    renderQuote(quoteData);
+  } catch (err) {
+    console.error('Failed to initialize quote:', err);
+  }
+}

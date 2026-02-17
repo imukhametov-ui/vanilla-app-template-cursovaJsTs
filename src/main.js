@@ -1,101 +1,68 @@
-// src/main.js
-import './css/styles.css';
+import { initHomePage } from './js/home.js';
+import { initFavoritesPage } from './js/favorites.js';
+import { subscribe } from './js/api.js';
+import { notify } from './js/notify.js';
+import './js/nav.js';
 
-import Filters from './js/filters.js';
-import Exercises from './js/exercises.js';
-import ExerciseModal from './js/modal.js';
-//import Subscription from './js/subscription.js';
-import { initHeader } from './js/header.js';
+function setActiveNav() {
+  const path = window.location.pathname;
+  const navHome = document.getElementById('nav-home');
+  const navFavorites = document.getElementById('nav-favorites');
 
-class App {
-  constructor() {
-    this.quote = null;
-    this.filters = null;
-    this.exercises = null;
-    this.subscription = null;
-    
-    this.filterSection = document.querySelector('.filters-section');
-    this.exercisesSection = document.querySelector('.exercises-section');
-    this.categoryName = document.querySelector('#category-name');
+  if (path.includes('favorites')) {
+    navFavorites?.classList.add('active');
+  } else {
+    navHome?.classList.add('active');
   }
-
-  init() {
-  console.log('App initialized');
-
-  initHeader();
-
-  // QUOTE: у тебе статична верстка, тому JS не потрібен
-  // (головне — щоб не було ReferenceError і не ламало ініціалізацію нижче)
-
-  this.filters = new Filters('#filter-tabs', '#filter-content');
-
-  this.filters.onFilterSelect = (filterData) => {
-    this.showExercisesSection(filterData);
-  };
-
-  this.filters.init();
-
-  this.exercises = new Exercises('#exercises-container', '#search-input');
-
-  this.exercises.onExerciseSelect = (exerciseId) => {
-    ExerciseModal.open(exerciseId);
-  };
-
-  //this.subscription = new Subscription('#subscription-form');
-  //this.subscription.init();
 }
 
+function setupHeaderScroll() {
+  const header = document.querySelector('.header');
+  if (!header) return;
 
-  showExercisesSection(filterData) {
-  if (this.filterSection) {
-    this.filterSection.style.display = 'none';
-  }
-  
-  if (this.exercisesSection) {
-    this.exercisesSection.style.display = 'block';
-  }
+  const isMobile = () => window.innerWidth < 768;
 
-  if (this.categoryName) {
-    this.categoryName.textContent = `/ ${filterData.name}`;
-  }
-
-  const params = {};
-  
-  if (filterData.type === 'Muscles') {
-    params.muscles = filterData.name;
-  } else if (filterData.type === 'Body parts') {
-    params.bodypart = filterData.name;
-  } else if (filterData.type === 'Equipment') {
-    params.equipment = filterData.name;
-  }
-  
-  this.exercises.setFilters(params);
-  
-  // ДОДАТИ ЦЕЙ КОД:
-  setTimeout(() => {
-    const searchInput = document.querySelector('#search-input');
-    if (searchInput) {
-      searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          const keyword = e.target.value.trim();
-          
-          if (keyword === '') {
-            delete this.exercises.filters.keyword;
-          } else {
-            this.exercises.filters.keyword = keyword;
-          }
-          
-          this.exercises.currentPage = 1;
-          this.exercises.loadExercises();
-        }
-      });
+  const handleScroll = () => {
+    if (isMobile() && window.scrollY > 0) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
     }
-  }, 100);
+  };
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('resize', handleScroll, { passive: true });
+  handleScroll();
 }
+
+function setupSubscription() {
+  const subForm = document.getElementById('subscription-form');
+  if (subForm) {
+    subForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const email = subForm.email.value;
+      try {
+        await subscribe(email);
+        notify.success('Successfully subscribed!');
+        subForm.reset();
+      } catch (err) {
+        // Error toast is shown by API interceptor
+      }
+    });
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const app = new App();
-  app.init();
+  setActiveNav();
+  setupSubscription();
+  setupHeaderScroll();
+
+  // Initialize page-specific functionality based on elements present
+  if (document.getElementById('exercises-container')) {
+    initHomePage();
+  }
+
+  if (document.getElementById('favorites-container')) {
+    initFavoritesPage();
+  }
 });

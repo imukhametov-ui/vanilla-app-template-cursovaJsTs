@@ -1,296 +1,179 @@
-// src/js/modal.js
-// Модальне вікно для детальної інформації про вправу
+// Modal management functions
+export const openModal = modalId => {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.showModal();
 
-import api from './api.js';
-import favoritesManager from './favorites.js';
+    // Add backdrop click listener if not already attached
+    // Use mousedown + click to prevent closing when selecting text
+    if (modal.dataset.backdropListener !== 'true') {
+      let mouseDownTarget = null;
 
-class ExerciseModal {
-  constructor() {
-    this.modal = null;
-    this.currentExerciseId = null;
-    this.currentExercise = null;
-  }
-
-  createModal() {
-    if (this.modal) return;
-
-    this.modal = document.createElement('div');
-    this.modal.className = 'modal-backdrop';
-    this.modal.innerHTML = `
-      <div class="modal-content">
-        <button class="modal-close" aria-label="Close modal">×</button>
-        <div class="modal-body"></div>
-      </div>
-    `;
-
-    document.body.appendChild(this.modal);
-
-    this.modal.querySelector('.modal-close').addEventListener('click', () => {
-      this.close();
-    });
-
-    this.modal.addEventListener('click', e => {
-      if (e.target === this.modal) {
-        this.close();
-      }
-    });
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && this.isOpen()) {
-        this.close();
-      }
-    });
-  }
-
-  async open(exerciseId) {
-    this.createModal();
-    this.currentExerciseId = exerciseId;
-
-    const modalBody = this.modal.querySelector('.modal-body');
-    modalBody.innerHTML = '<div class="loader">Loading...</div>';
-
-    this.modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-
-    try {
-      const exercise = await api.getExerciseById(exerciseId);
-      this.currentExercise = exercise;
-      this.renderExerciseDetails(exercise);
-    } catch (error) {
-      console.error('Failed to load exercise details:', error);
-      modalBody.innerHTML = `
-        <div class="error-message">
-          <p>Failed to load exercise details.</p>
-        </div>
-      `;
-    }
-  }
-
-  renderExerciseDetails(exercise) {
-    const modalBody = this.modal.querySelector('.modal-body');
-    const isFavorite = favoritesManager.isFavorite(exercise._id);
-    
-    modalBody.innerHTML = `
-      <div class="exercise-details-modal">
-        <div class="exercise-video">
-          ${exercise.gifUrl ? `<img src="${exercise.gifUrl}" alt="${exercise.name}" />` : ''}
-        </div>
-        
-        <div class="exercise-info-detailed">
-          <h2>${exercise.name}</h2>
-          
-          <div class="exercise-rating-section">
-            <div class="rating-display">
-              ${this.renderStars(exercise.rating)}
-              <span>${exercise.rating.toFixed(1)}</span>
-            </div>
-          </div>
-          
-          <div class="exercise-specs">
-            <div class="spec-item">
-              <span class="label">Target</span>
-              <span class="value">${exercise.target}</span>
-            </div>
-            <div class="spec-item">
-              <span class="label">Body Part</span>
-              <span class="value">${exercise.bodyPart}</span>
-            </div>
-            <div class="spec-item">
-              <span class="label">Equipment</span>
-              <span class="value">${exercise.equipment}</span>
-            </div>
-            <div class="spec-item">
-              <span class="label">Popular</span>
-              <span class="value">${exercise.popularity}</span>
-            </div>
-            <div class="spec-item">
-              <span class="label">Burned Calories</span>
-              <span class="value">${exercise.burnedCalories} / ${exercise.time} min</span>
-            </div>
-          </div>
-          
-          <div class="exercise-description">
-            <p>${exercise.description || 'No description available.'}</p>
-          </div>
-          
-          <div class="modal-actions">
-            <button class="btn-favorite ${isFavorite ? 'is-favorite' : ''}" data-id="${exercise._id}">
-              ${isFavorite ? 'Remove from' : 'Add to'} Favorites
-            </button>
-            
-            <button class="btn-rating">Give a rating</button>
-          </div>
-        </div>
-      </div>
-    `;
-
-    this.setupFavoriteButton();
-    this.setupRating();
-  }
-
-  renderStars(rating) {
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 >= 0.5;
-    let starsHTML = '';
-
-    for (let i = 0; i < 5; i++) {
-      if (i < fullStars) {
-        starsHTML += '<span class="star full">★</span>';
-      } else if (i === fullStars && hasHalfStar) {
-        starsHTML += '<span class="star half">★</span>';
-      } else {
-        starsHTML += '<span class="star empty">☆</span>';
-      }
-    }
-
-    return starsHTML;
-  }
-
-  setupFavoriteButton() {
-    const favoriteBtn = this.modal.querySelector('.btn-favorite');
-    if (!favoriteBtn) return;
-
-    favoriteBtn.addEventListener('click', () => {
-      const exerciseId = favoriteBtn.dataset.id;
-      const isFavorite = favoritesManager.isFavorite(exerciseId);
-
-      if (isFavorite) {
-        favoritesManager.removeFromFavorites(exerciseId);
-        favoriteBtn.classList.remove('is-favorite');
-        favoriteBtn.textContent = 'Add to Favorites';
-      } else {
-        favoritesManager.addToFavorites(this.currentExercise);
-        favoriteBtn.classList.add('is-favorite');
-        favoriteBtn.textContent = 'Remove from Favorites';
-      }
-    });
-  }
-
-  setupRating() {
-    const ratingBtn = this.modal.querySelector('.btn-rating');
-    if (!ratingBtn) return;
-
-    ratingBtn.addEventListener('click', () => {
-      this.openRatingModal();
-    });
-  }
-
-  openRatingModal() {
-    const ratingModal = document.createElement('div');
-    ratingModal.className = 'modal-backdrop rating-modal';
-    ratingModal.innerHTML = `
-      <div class="modal-content modal-rating-content">
-        <button class="modal-close" aria-label="Close modal">×</button>
-        <div class="modal-body">
-          <h3>Rate this exercise</h3>
-          <p>Choose your rating from 1 to 5</p>
-          
-          <form class="rating-form">
-            <div class="rating-stars">
-              ${[1, 2, 3, 4, 5]
-                .map(
-                  star => `
-                <label class="rating-star-label">
-                  <input type="radio" name="rating" value="${star}" required />
-                  <span class="star">☆</span>
-                </label>
-              `
-                )
-                .join('')}
-            </div>
-            
-            <input 
-              type="email" 
-              name="email"
-              placeholder="Your email"
-              required
-              pattern="^\\w+(\\.\\w+)?@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$"
-              class="rating-email"
-            />
-            
-            <button type="submit" class="btn-submit-rating">Send</button>
-          </form>
-        </div>
-      </div>
-    `;
-
-    document.body.appendChild(ratingModal);
-    this.modal.classList.remove('active');
-    ratingModal.classList.add('active');
-
-    const stars = ratingModal.querySelectorAll('.rating-star-label');
-    const radioInputs = ratingModal.querySelectorAll('input[type="radio"]');
-    
-    radioInputs.forEach((radio, index) => {
-      radio.addEventListener('change', () => {
-        stars.forEach((star, i) => {
-          const starIcon = star.querySelector('.star');
-          if (i <= index) {
-            starIcon.textContent = '★';
-            starIcon.classList.add('filled');
-          } else {
-            starIcon.textContent = '☆';
-            starIcon.classList.remove('filled');
-          }
-        });
+      modal.addEventListener('mousedown', e => {
+        mouseDownTarget = e.target;
       });
-    });
 
-    const form = ratingModal.querySelector('.rating-form');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const selectedRating = form.querySelector('input[name="rating"]:checked');
-  if (!selectedRating) {
-    alert('Please select a rating');
-    return;
-  }
-  
-  const rating = parseInt(selectedRating.value);
-  const submitBtn = form.querySelector('.btn-submit-rating');
-      
-      try {
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
-        
-        await api.rateExercise(this.currentExerciseId, rating);
-        
-        ratingModal.remove();
-        this.modal.classList.add('active');
-        alert('Thank you for your rating!');
-      } catch (error) {
-        console.error('Failed to submit rating:', error);
-        alert('Failed to submit rating. Please try again.');
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send';
-      }
-    });
+      modal.addEventListener('click', e => {
+        // Only close if both mousedown and click happened on the backdrop
+        if (e.target === modal && mouseDownTarget === modal) {
+          modal.close();
+        }
+        mouseDownTarget = null;
+      });
 
-    const closeBtn = ratingModal.querySelector('.modal-close');
-    closeBtn.addEventListener('click', () => {
-      ratingModal.remove();
-      this.modal.classList.add('active');
-    });
-
-    ratingModal.addEventListener('click', (e) => {
-      if (e.target === ratingModal) {
-        ratingModal.remove();
-        this.modal.classList.add('active');
-      }
-    });
-  }
-
-  close() {
-    if (this.modal) {
-      this.modal.classList.remove('active');
-      document.body.style.overflow = '';
-      this.currentExerciseId = null;
+      modal.dataset.backdropListener = 'true';
     }
   }
+};
 
-  isOpen() {
-    return this.modal && this.modal.classList.contains('active');
+export const closeModal = modalId => {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.close();
   }
-}
+};
 
-export default new ExerciseModal();
+// Render exercise details in modal
+export const renderExerciseModal = exercise => {
+  if (!exercise) return;
+
+  // Update GIF
+  const gifElement = document.getElementById('modal-exercise-gif');
+  if (gifElement) {
+    gifElement.src = exercise.gifUrl || '';
+    gifElement.alt = exercise.name || 'Exercise';
+  }
+
+  // Update title
+  const titleElement = document.getElementById('modal-exercise-title');
+  if (titleElement) {
+    titleElement.textContent = exercise.name || 'Exercise';
+  }
+
+  // Update rating
+  const ratingElement = document.getElementById('modal-exercise-rating');
+  if (ratingElement) {
+    const rating = exercise.rating || 0;
+    const fullStars = Math.floor(rating);
+
+    ratingElement.innerHTML = `
+      <span class="rating-value">${rating.toFixed(1)}</span>
+      <div class="rating-stars">
+        ${Array.from({ length: 5 }, (_, i) => {
+          const filled = i < fullStars ? 'filled' : '';
+          return `<svg class="star ${filled}" width="18" height="18" aria-hidden="true">
+            <use href="#icon-star"></use>
+          </svg>`;
+        }).join('')}
+      </div>
+    `;
+  }
+
+  // Update details
+  const targetElement = document.getElementById('modal-target');
+  if (targetElement) targetElement.textContent = exercise.target || 'N/A';
+
+  const bodyPartElement = document.getElementById('modal-bodypart');
+  if (bodyPartElement) bodyPartElement.textContent = exercise.bodyPart || 'N/A';
+
+  const equipmentElement = document.getElementById('modal-equipment');
+  if (equipmentElement) equipmentElement.textContent = exercise.equipment || 'N/A';
+
+  const popularElement = document.getElementById('modal-popular');
+  if (popularElement) popularElement.textContent = exercise.popularity || '0';
+
+  const caloriesElement = document.getElementById('modal-calories');
+  if (caloriesElement) {
+    caloriesElement.textContent = `${exercise.burnedCalories || 0}/${exercise.time || 0} min`;
+  }
+
+  // Update description
+  const descriptionElement = document.getElementById('modal-description');
+  if (descriptionElement) {
+    descriptionElement.textContent = exercise.description || 'No description available.';
+  }
+
+  // Store exercise ID for later use (favorites, rating)
+  const modal = document.getElementById('exercise-modal');
+  if (modal) {
+    modal.dataset.exerciseId = exercise._id;
+  }
+};
+
+// Store exerciseId when opening rating modal to reopen exercise modal later
+let currentExerciseIdForRating = null;
+
+// Show rating modal (close exercise modal, reopen it when rating closes)
+export const showRatingModal = exerciseId => {
+  const ratingModal = document.getElementById('rating-modal');
+
+  // Store exerciseId to reopen exercise modal later
+  currentExerciseIdForRating = exerciseId;
+
+  // Close exercise modal first
+  closeModal('exercise-modal');
+
+  // Add close event listener once to reset form and reopen exercise modal
+  if (ratingModal && ratingModal.dataset.closeListener !== 'true') {
+    ratingModal.addEventListener('close', () => {
+      resetRatingForm();
+      // Reopen exercise modal with stored ID
+      if (currentExerciseIdForRating) {
+        reopenExerciseModal(currentExerciseIdForRating);
+        currentExerciseIdForRating = null;
+      }
+    });
+    ratingModal.dataset.closeListener = 'true';
+  }
+
+  openModal('rating-modal');
+  resetRatingForm();
+  initRatingStars();
+};
+
+// Reopen exercise modal without fetching data again (it's already in DOM)
+const reopenExerciseModal = () => {
+  openModal('exercise-modal');
+};
+
+// Hide rating modal and return to exercise modal
+export const hideRatingModal = () => {
+  closeModal('rating-modal');
+};
+
+// Reset rating form
+const resetRatingForm = () => {
+  const ratingForm = document.getElementById('rating-form');
+  const ratingValue = document.getElementById('rating-display-value');
+
+  if (ratingForm) ratingForm.reset();
+  if (ratingValue) ratingValue.textContent = '0.0';
+};
+
+// Initialize rating stars interaction
+export const initRatingStars = () => {
+  const starsContainer = document.getElementById('rating-stars');
+  const ratingValue = document.getElementById('rating-display-value');
+
+  if (!starsContainer) return;
+
+  // Check if already has listener to prevent duplicates
+  if (starsContainer.dataset.listenerAttached === 'true') return;
+  starsContainer.dataset.listenerAttached = 'true';
+
+  // Update rating display when radio changes
+  starsContainer.addEventListener('change', (e) => {
+    if (e.target.type === 'radio') {
+      const selectedRating = parseFloat(e.target.value);
+      if (ratingValue) {
+        ratingValue.textContent = selectedRating.toFixed(1);
+      }
+    }
+  });
+};
+
+// Get current rating value from radio buttons
+export const getCurrentRating = () => {
+  const checkedRadio = document.querySelector('#rating-stars input[name="rating"]:checked');
+  return checkedRadio ? parseFloat(checkedRadio.value) : 0;
+};

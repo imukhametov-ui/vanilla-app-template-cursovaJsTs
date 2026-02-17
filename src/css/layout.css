@@ -1,0 +1,28 @@
+/* ==========================================================================
+   LAYOUT - Mobile First
+
+   DOM order (matches tab order and reading order):
+   1. section (content-area) - main exercises
+   2. aside (sidebar) - additional info
+
+   Visual order on mobile: content first, sidebar second (same as DOM)
+   Visual order on desktop: sidebar left, content right (CSS order)
+   ========================================================================== */
+
+.main-content {
+  padding-bottom: 80px;
+}
+
+.main-content > .container {
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+  
+
+.content-area {
+  flex: 1;
+  padding-bottom: 64px;
+}

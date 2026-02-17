@@ -1,0 +1,48 @@
+<li class="exercise-card {{cardClass}}" data-id="{{id}}">
+  <div class="exercise-card-header">
+    <div class="exercise-card-left">
+      <span class="exercise-workout-badge">WORKOUT</span>
+      <span class="exercise-rating" aria-label="Rating: {{ratingFormatted}} out of 5">
+        {{ratingFormatted}}
+        <svg width="18" height="18" class="exercise-rating-star" aria-hidden="true">
+          <use href="#icon-star"></use>
+        </svg>
+      </span>
+      <button type="button" class="favorite-delete-btn" data-id="{{id}}" aria-label="Remove {{name}} from favorites">
+        <svg width="20" height="20" aria-hidden="true">
+          <use href="#icon-trash"></use>
+        </svg>
+      </button>
+    </div>
+    <button class="exercise-start-btn" data-id="{{id}}" aria-label="Start exercise {{name}}">
+      Start
+      <svg width="16" height="16" aria-hidden="true">
+        <use href="#icon-arrow"></use>
+      </svg>
+    </button>
+  </div>
+
+  <div class="exercise-card-body">
+    <span class="exercise-icon">
+      <svg width="16px" height="16px" aria-hidden="true">
+        <use href="#icon-quote"></use>
+      </svg>
+    </span>
+    <h3 class="exercise-card-title">{{name}}</h3>
+  </div>
+
+  <ul class="exercise-card-meta">
+    <li class="meta-item">
+      <span class="meta-label">Burned calories:</span>
+      <span class="meta-value">{{burnedCalories}} / {{time}} min</span>
+    </li>
+    <li class="meta-item">
+      <span class="meta-label">Body part:</span>
+      <span class="meta-value">{{bodyPart}}</span>
+    </li>
+    <li class="meta-item">
+      <span class="meta-label">Target:</span>
+      <span class="meta-value">{{target}}</span>
+    </li>
+  </ul>
+</li>

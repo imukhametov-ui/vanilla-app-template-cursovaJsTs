@@ -1,0 +1,84 @@
+/* Quote Card */
+.quote-card {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  padding: 20px;
+  border-radius: 20px;
+  gap: 18px;
+  min-height: 210px;
+}
+
+/* Header: icon + title + decoration */
+.quote-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  
+}
+
+.quote-icon {
+  width: 34px;
+  height: 34px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: rgb(244, 244, 244, 0.2);
+  border-radius: 50%;
+
+}
+
+.quote-title {
+  font-size: var(--fs-20);
+  font-weight: 500;
+  line-height: 22px;
+  color: var(--color-light);
+  margin: 0;
+  flex: 1;
+}
+
+.quote-decoration {
+  width: 20px;
+  height: 20px;
+  color: var(--color-light);
+  flex-shrink: 0;
+}
+
+/* Main wrapper */
+.quote-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Content: text + author */
+.quote-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.quote-text {
+  font-size: var(--fs-14);
+  line-height: var(--lh-18);
+  color: var(--color-light-60);
+  margin: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quote-author {
+  font-size: var(--fs-16);
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--color-light);
+  margin: 0;
+  margin-top: auto;
+  font-style: normal;
+}

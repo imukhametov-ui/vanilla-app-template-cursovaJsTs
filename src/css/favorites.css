@@ -1,0 +1,227 @@
+/* Favorites Page Styles */
+.favorites-page {
+  padding-bottom: 80px;
+}
+
+/* Favorites Content Layout */
+
+.favorites-content > .container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Favorites Sidebar */
+.favorites-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-20);
+  margin-bottom: 40px;
+}
+
+/* Favorites Main Content */
+.favorites-main {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.favorites-info-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.favorites-info-icon {
+  width: 34px;
+  height: 32px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.favorites-info-icon::before {
+  content: "";
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background-color: var(--color-black);
+  border-radius: 50%;
+  z-index: var(--z-base);
+}
+
+.favorites-info-icon svg {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  z-index: var(--z-content);
+  color: var(--color-white);
+}
+
+.favorites-info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.favorites-info-value {
+  margin: 0;
+  font-size: var(--fs-24);
+  font-weight: 500;
+  line-height: 32px;
+  color: var(--color-black);
+}
+
+.favorites-info-label {
+  margin: 0;
+  font-size: var(--fs-14);
+  line-height: var(--lh-18);
+  color: var(--color-gray-60);
+}
+
+/* Favorites Grid */
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Empty State */
+.favorites-grid .favorites-empty {
+  grid-column: 1 / -1;
+}
+
+.favorites-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.favorites-empty-text {
+  font-size: var(--fs-18);
+  line-height: var(--lh-24);
+  color: var(--color-black);
+  max-width: 580px;
+}
+
+/* Favorites Info Card */
+.favorites-info-card {
+  grid-area: b;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  padding: var(--gap-20);
+  border-radius: var(--radius-20);
+  height: 119px;
+}
+
+/* Favorites Image Card */
+.favorites-image-card {
+  grid-area: c;
+  width: 100%;
+  height: 119px;
+  margin: 0;
+  border-radius: var(--radius-20);
+  overflow: hidden;
+}
+
+.favorites-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   RESPONSIVE - Tablet: 768px+
+   ========================================================================== */
+@media (min-width: 768px) {
+  .favorites-grid {
+    gap: 32px 16px;
+  }
+
+  .favorites-sidebar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto 141px;
+    grid-template-areas:
+      "a a"
+      "b c";
+  }
+
+  .favorites-sidebar .quote-card {
+    grid-area: a;
+  }
+
+  .favorites-image-card,
+  .favorites-info-card {
+    height: 141px;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE - Desktop: 1440px+
+   ========================================================================== */
+@media (min-width: 1440px) {
+  .favorites-content {
+    flex-direction: row;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .favorites-sidebar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: min-content 141px;
+    grid-template-areas:
+      "a a"
+      "b c";
+    max-width: 494px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+
+  .favorites-sidebar > .quote-card {
+    max-height: 230px;
+  }
+
+  .favorites-main {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .favorites-list,
+  .favorites-grid {
+    max-height: 487px;
+    overflow-y: auto;
+    padding-right: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-black) transparent;
+  }
+
+  /* Webkit scrollbar (Chrome, Safari) */
+  .favorites-list::-webkit-scrollbar,
+  .favorites-grid::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .favorites-list::-webkit-scrollbar-track,
+  .favorites-grid::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .favorites-list::-webkit-scrollbar-thumb,
+  .favorites-grid::-webkit-scrollbar-thumb {
+    background-color: var(--color-black);
+    border-radius: 4px;
+  }
+
+  .favorites-pagination {
+    display: none;
+  }
+}

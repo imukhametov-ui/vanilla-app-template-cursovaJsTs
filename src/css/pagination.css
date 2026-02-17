@@ -1,0 +1,124 @@
+/* Pagination container */
+#pagination-container,
+#favorites-pagination {
+  margin-top: 20px;
+}
+
+.pagination-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  gap: 8px;
+  list-style: none;
+}
+
+/* Numbers container */
+.pagination-numbers {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0 12px;
+}
+
+/* Navigation links (first, prev, next, last) */
+.pagination-btn {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #242424;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.pagination-icon {
+  color: #242424;
+  transition: var(--transition);
+}
+
+.pagination-icon.flip {
+  transform: rotate(180deg);
+}
+
+.pagination-btn:hover:not(.disabled) {
+  background-color: #242424;
+  border-color: #242424;
+}
+
+.pagination-btn:hover:not(.disabled) .pagination-icon {
+  color: var(--color-white);
+}
+
+.pagination-btn.disabled {
+  cursor: not-allowed;
+  border-color: rgba(36, 36, 36, 0.1);
+  pointer-events: none;
+}
+
+.pagination-btn.disabled .pagination-icon {
+  color: rgba(36, 36, 36, 0.65);
+}
+
+/* Page number links */
+.pagination-number {
+  font-family: 'DM Sans', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: rgba(36, 36, 36, 0.65);
+  cursor: pointer;
+  transition: var(--transition);
+  background: none;
+  border: none;
+  padding: 0;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+/* Current page number */
+.pagination-number.current {
+  border: 1px solid #242424;
+  border-radius: 50%;
+  cursor: default;
+  font-weight: 400;
+  color: #242424;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+}
+
+/* Hover effect for inactive numbers */
+.pagination-number:not(.current):hover {
+  color: #242424;
+}
+
+/* Dots (ellipsis) */
+.pagination-dots {
+  cursor: default;
+  color: rgba(36, 36, 36, 0.5);
+  pointer-events: none;
+  min-width: 24px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  border: none;
+  background: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

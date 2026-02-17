@@ -1,56 +1,113 @@
 <!-- src/partials/footer.html -->
 <footer class="footer">
-  <div class="container footer-container">
-    <!-- src/partials/footer.html - ВИПРАВИТИ рядки 4-10 -->
-<div class="footer-top">
-  <a href="./index.html" class="footer-logo">
-    <svg width="126" height="20">
-      <use href="/images/icons.svg#icon-logo"></use>
-    </svg>
-  </a>
-  
-  <ul class="social-list" style="display: flex !important; flex-direction: row !important; gap: 12px !important; list-style: none !important; padding: 0 !important; margin: 0 !important;">
-    <li style="display: inline-block !important; list-style: none !important;">
-      <a href="https://www.facebook.com/goITclub/" class="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-        <svg width="20" height="20">
-          <use href="/images/icons.svg#icon-facebook"></use>
-        </svg>
-      </a>
-    </li>
-    <li style="display: inline-block !important; list-style: none !important;">
-      <a href="https://www.instagram.com/goitclub/" class="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-        <svg width="20" height="20">
-          <use href="/images/icons.svg#icon-instagram"></use>
-        </svg>
-      </a>
-    </li>
-    <li style="display: inline-block !important; list-style: none !important;">
-      <a href="https://www.youtube.com/c/GoIT" class="social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
-        <svg width="20" height="20">
-          <use href="/images/icons.svg#icon-youtube"></use>
-        </svg>
-      </a>
-    </li>
-  </ul>
-</div>
+  <div class="container">
+    <div class="footer-wrapper">
+      <div class="footer-info">
+        <div class="footer-logo">
+          <a href="./index.html" aria-label="Your Energy - Home">
+            <svg class="logo-svg" width="132" height="14" aria-hidden="true">
+              <use href="#logo"></use>
+            </svg>
+          </a>
+        </div>
+        <ul class="footer-socials">
+          <li>
+            <a
+              href="https://www.facebook.com/goITclub/"
+              class="social-link"
+              aria-label="Visit our Facebook page"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg
+                class="social-icon"
+                width="28"
+                height="28"
+                aria-hidden="true"
+              >
+                <use href="#icon-facebook"></use>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.instagram.com/goitclub/"
+              class="social-link"
+              aria-label="Visit our Instagram page"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg
+                class="social-icon"
+                width="28"
+                height="28"
+                aria-hidden="true"
+              >
+                <use href="#icon-instagram"></use>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.youtube.com/c/GoIT"
+              class="social-link"
+              aria-label="Visit our YouTube channel"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg
+                class="social-icon"
+                width="28"
+                height="28"
+                aria-hidden="true"
+              >
+                <use href="#icon-youtube"></use>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
 
-    <div class="footer-middle">
-      <p class="footer-slogan">Transforming your body shape with us</p>
-      
-      <form id="subscription-form" class="subscription-form">
-        <input 
-          type="email" 
-          name="email"
-          placeholder="Enter your email"
-          required
-          pattern="^\w+(\.\w+)?@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
-        />
-        <button type="submit" class="btn-subscribe">Subscribe</button>
-      </form>
+      <p class="footer-slogan">Transforming your <i>body</i> shape with us</p>
+
+      <div class="footer-subscription">
+        <h2 class="subscription-title">
+          Subscribe and learn about new exercises!
+        </h2>
+        <form
+          id="subscription-form"
+          class="subscription-form"
+          aria-label="Newsletter subscription"
+        >
+          <label for="subscription-email" class="visually-hidden"
+            >Email address</label
+          >
+          <input
+            type="email"
+            id="subscription-email"
+            name="email"
+            placeholder="Email"
+            required
+            pattern="^\w+(\.\w+)?@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
+            title="Please enter a valid email address (e.g., example@domain.com)"
+            class="subscription-input"
+            autocomplete="email"
+          >
+          <button type="submit" class="btn btn-outline">Send</button>
+        </form>
+      </div>
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; 2024 Your Energy. All rights reserved.</p>
+      <p class="footer-rights">Your Energy. All rights reserved.</p>
+      <nav class="footer-nav" aria-label="Legal information">
+        <ul class="footer-nav-list">
+          <li><a href="#privacy-policy">Privacy Policy</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="#terms-of-service">Terms of Service</a></li>
+        </ul>
+      </nav>
+      <p class="footer-copyright">©2023</p>
     </div>
   </div>
 </footer>

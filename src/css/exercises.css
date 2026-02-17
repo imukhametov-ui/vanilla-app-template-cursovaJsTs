@@ -1,0 +1,196 @@
+/* Exercise Item Cards (for exercises list view) */
+.exercises-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(344px, 1fr));
+  gap: 20px;
+  width: 100%;
+  list-style: none;
+}
+
+.exercise-card {
+  background: #fff;
+  border-radius: 15px;
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header - top row with badge, rating and start button */
+.exercise-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.exercise-card-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Badge */
+.exercise-workout-badge {
+  padding: 5px 8px;
+  border: 1px solid #242424;
+  border-radius: 15px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #242424;
+}
+
+/* Rating (info only, shown on home page) */
+.exercise-rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  color: #242424;
+}
+
+.exercise-rating-star {
+  width: 18px;
+  height: 18px;
+  color: #eea10c;
+}
+
+/* Hide rating on favorites page, show delete button */
+.favorites-page .exercise-rating {
+  display: none;
+}
+
+/* Delete button (shown only on favorites page) */
+.favorite-delete-btn {
+  display: none;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #242424;
+  line-height: 0;
+}
+
+.favorite-delete-btn:hover {
+  opacity: 0.7;
+}
+
+.favorite-delete-btn:focus {
+  outline: 2px solid #242424;
+  outline-offset: 2px;
+}
+
+.favorites-page .favorite-delete-btn {
+  display: flex;
+}
+
+/* Start button */
+.exercise-start-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #242424;
+  cursor: pointer;
+  transition: var(--transition);
+  padding: 0;
+}
+
+.exercise-start-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Body - icon and title row */
+.exercise-card-body {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 25px 0 16px;
+}
+
+.exercise-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: #f4f4f4;
+  background-color: #242424;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.exercise-card-title {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
+  color: #242424;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.exercise-card-title::first-letter {
+  text-transform: uppercase;
+}
+
+/* Metadata */
+.exercise-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.meta-label {
+  color: rgb(36, 36, 36, 0.65);
+  font-weight: 400;
+  flex-shrink: 0;
+}
+
+.meta-value {
+  color: #242424;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta-value::first-letter {
+  text-transform: uppercase;
+}
+
+/* No results message */
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  color: rgb(36, 36, 36, 0.6);
+}

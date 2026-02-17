@@ -1,106 +1,96 @@
-// src/js/api.js
-// Сервіс для роботи з API Your Energy
+import axios from 'axios';
+import { notify } from './notify.js';
+import { API_BASE_URL, LIMITS } from './constants.js';
 
-const BASE_URL = 'https://your-energy.b.goit.study/api';
+const api = axios.create({
+  baseURL: API_BASE_URL,
+});
 
-class YourEnergyAPI {
-  // Отримання цитати дня
-  async getQuote() {
-    try {
-      const response = await fetch(`${BASE_URL}/quote`);
-      if (!response.ok) throw new Error('Failed to fetch quote');
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching quote:', error);
-      throw error;
+// Error messages mapping
+const errorMessages = {
+  400: 'Bad request. Please check your input.',
+  401: 'Unauthorized. Please log in.',
+  404: 'Resource not found.',
+  409: 'This email has already been used.',
+  500: 'Server error. Please try again later.',
+  default: 'Something went wrong. Please try again.',
+};
+
+// Response interceptor for error handling
+api.interceptors.response.use(
+  response => response,
+  error => {
+    // Handle network errors (no internet, server unreachable)
+    if (!error.response) {
+      const isOffline = !navigator.onLine;
+      const message = isOffline
+        ? 'No internet connection. Please check your network.'
+        : 'Unable to connect to server. Please try again later.';
+      notify.error(message);
+      return Promise.reject(error);
     }
-  }
 
-  // Отримання фільтрів
-  async getFilters(filterType, page = 1, limit = 12) {
-    try {
-      const response = await fetch(
-        `${BASE_URL}/filters?filter=${filterType}&page=${page}&limit=${limit}`
-      );
-      if (!response.ok) throw new Error('Failed to fetch filters');
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching filters:', error);
-      throw error;
+    const status = error.response.status;
+
+    // Skip notification for 409 - handled specifically in controllers
+    if (status === 409) {
+      return Promise.reject(error);
     }
+
+    const serverMessage = error.response.data?.message;
+    const message = serverMessage || errorMessages[status] || errorMessages.default;
+
+    notify.error(message);
+
+    return Promise.reject(error);
   }
+);
 
-  // Отримання каталогу вправ
-  async getExercises(params = {}) {
-    const queryParams = new URLSearchParams();
-    
-    if (params.bodypart) queryParams.append('bodypart', params.bodypart);
-    if (params.muscles) queryParams.append('muscles', params.muscles);
-    if (params.equipment) queryParams.append('equipment', params.equipment);
-    if (params.keyword) queryParams.append('keyword', params.keyword);
-    if (params.page) queryParams.append('page', params.page);
-    if (params.limit) queryParams.append('limit', params.limit);
+export const getQuote = async () => {
+  const { data } = await api.get('/quote');
+  return data;
+};
 
-    try {
-      const response = await fetch(`${BASE_URL}/exercises?${queryParams}`);
-      if (!response.ok) throw new Error('Failed to fetch exercises');
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching exercises:', error);
-      throw error;
-    }
+export const getFilters = async ({ filter, page = 1, limit = LIMITS.DEFAULT }) => {
+  const { data } = await api.get('/filters', {
+    params: { filter, page, limit },
+  });
+  return data;
+};
+
+export const getExercises = async ({
+  bodypart,
+  muscles,
+  equipment,
+  keyword,
+  page = 1,
+  limit = LIMITS.EXERCISES_TABLET,
+}) => {
+  const params = { page, limit };
+  if (bodypart) params.bodypart = bodypart;
+  if (muscles) params.muscles = muscles;
+  if (equipment) params.equipment = equipment;
+  if (keyword) params.keyword = keyword;
+
+  const { data } = await api.get('/exercises', { params });
+  return data;
+};
+
+export const getExerciseById = async id => {
+  const { data } = await api.get(`/exercises/${id}`);
+  return data;
+};
+
+export const updateRating = async (id, rating, email, review = '') => {
+  const body = { rate: rating, email };
+  if (review) {
+    body.review = review;
   }
+  const { data } = await api.patch(`/exercises/${id}/rating`, body);
+  return data;
+};
 
-  // Отримання деталей вправи
-  async getExerciseById(exerciseId) {
-    try {
-      const response = await fetch(`${BASE_URL}/exercises/${exerciseId}`);
-      if (!response.ok) throw new Error('Failed to fetch exercise details');
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching exercise details:', error);
-      throw error;
-    }
-  }
-
-  // Оцінювання вправи
-  async rateExercise(exerciseId, rating) {
-    try {
-      const response = await fetch(
-        `${BASE_URL}/exercises/${exerciseId}/rating`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ rating }),
-        }
-      );
-      if (!response.ok) throw new Error('Failed to rate exercise');
-      return await response.json();
-    } catch (error) {
-      console.error('Error rating exercise:', error);
-      throw error;
-    }
-  }
-
-  // Підписка
-  async subscribe(email) {
-    try {
-      const response = await fetch(`${BASE_URL}/subscription`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-      if (!response.ok) throw new Error('Failed to subscribe');
-      return await response.json();
-    } catch (error) {
-      console.error('Error subscribing:', error);
-      throw error;
-    }
-  }
-}
-
-export default new YourEnergyAPI();
+export const subscribe = async email => {
+  const { data } = await api.post('/subscription', { email });
+  return data;
+};

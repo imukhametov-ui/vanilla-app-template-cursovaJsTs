@@ -1,140 +1,211 @@
-// src/js/favorites.js
-// Компонент сторінки Favorites
+// Favorites Page
+// Сторінка — "диригент", збирає все разом
 
-import ExerciseModal from './modal.js';
+import { loadTemplate, replacePlaceholders, runAfterLoad } from './dom.js';
+import { initQuote } from './quote.js';
+import { renderPagination, setupPagination } from './pagination.js';
+import { openExerciseModal } from './exercise-controller.js';
+import { getFavoriteIds, removeFavorite } from './favorites-service.js';
+import { getExerciseById } from './api.js';
+import { BREAKPOINTS, LIMITS, DEBOUNCE_MS } from './constants.js';
 
-class FavoritesPage {
-  constructor(containerSelector) {
-    this.container = document.querySelector(containerSelector);
-    this.favorites = this.loadFavorites();
+// Re-export service functions for other modules
+export { getFavoriteIds, addFavorite, removeFavorite, isFavorite, toggleFavorite } from './favorites-service.js';
+
+// Page state
+const state = {
+  page: 1,
+  exercises: [], // Cached exercises data from API
+};
+
+// Get items per page based on screen width
+function getPerPage() {
+  const width = window.innerWidth;
+  if (width >= BREAKPOINTS.DESKTOP) return Infinity;
+  if (width >= BREAKPOINTS.TABLET) return LIMITS.EXERCISES_TABLET;
+  return LIMITS.EXERCISES_MOBILE;
+}
+
+// Check if we should use pagination
+function usePagination() {
+  return window.innerWidth < BREAKPOINTS.DESKTOP;
+}
+
+// Render empty state
+async function renderEmptyState(container) {
+  const template = await loadTemplate('favorites-empty');
+  container.innerHTML = template;
+}
+
+// Fetch exercises data from API
+async function fetchFavoritesData() {
+  const favoriteIds = getFavoriteIds();
+
+  if (favoriteIds.length === 0) {
+    state.exercises = [];
+    return;
   }
 
-  loadFavorites() {
+  // Fetch all exercises in parallel
+  const exercisePromises = favoriteIds.map(async (id) => {
     try {
-      const stored = localStorage.getItem('favorites');
-      return stored ? JSON.parse(stored) : [];
-    } catch (error) {
-      console.error('Error loading favorites:', error);
-      return [];
+      return await getExerciseById(id);
+    } catch (err) {
+      console.error(`Failed to fetch exercise ${id}:`, err);
+      // Remove invalid ID from favorites
+      removeFavorite(id);
+      return null;
     }
-  }
+  });
 
-  saveFavorites() {
-    try {
-      localStorage.setItem('favorites', JSON.stringify(this.favorites));
-    } catch (error) {
-      console.error('Error saving favorites:', error);
+  const exercises = await Promise.all(exercisePromises);
+  state.exercises = exercises.filter(Boolean); // Remove nulls
+}
+
+// Render favorites list
+async function renderFavorites() {
+  const container = document.getElementById('favorites-container');
+  if (!container) return;
+
+  const paginationContainer = document.getElementById('favorites-pagination');
+
+  if (state.exercises.length === 0) {
+    await renderEmptyState(container);
+    if (paginationContainer) {
+      paginationContainer.innerHTML = '';
     }
+    return;
   }
 
-  addToFavorites(exercise) {
-    const exists = this.favorites.some(fav => fav._id === exercise._id);
-    if (!exists) {
-      this.favorites.push(exercise);
-      this.saveFavorites();
-      return true;
-    }
-    return false;
+  const perPage = getPerPage();
+  const shouldPaginate = usePagination();
+  const totalPages = shouldPaginate ? Math.ceil(state.exercises.length / perPage) : 1;
+
+  if (state.page > totalPages) {
+    state.page = totalPages;
   }
 
-  removeFromFavorites(exerciseId) {
-    this.favorites = this.favorites.filter(fav => fav._id !== exerciseId);
-    this.saveFavorites();
-    this.render();
-  }
+  const startIndex = shouldPaginate ? (state.page - 1) * perPage : 0;
+  const endIndex = shouldPaginate ? startIndex + perPage : state.exercises.length;
+  const favorites = state.exercises.slice(startIndex, endIndex);
 
-  isFavorite(exerciseId) {
-    return this.favorites.some(fav => fav._id === exerciseId);
-  }
+  const cardTemplate = await loadTemplate('exercise-card');
 
-  render() {
-    if (!this.container) return;
-
-    if (this.favorites.length === 0) {
-      this.container.innerHTML = `
-        <div class="empty-favorites">
-          <h2>Your favorites list is empty</h2>
-          <p>Add exercises you like to this list and they will be saved here</p>
-          <a href="/index.html" class="btn-primary">Browse Exercises</a>
-        </div>
-      `;
-      return;
-    }
-
-    const favoritesHTML = this.favorites
-      .map(
-        exercise => `
-        <div class="favorite-card" data-id="${exercise._id}">
-          <div class="favorite-header">
-            <div class="favorite-badge">WORKOUT</div>
-            <button class="remove-favorite-btn" data-id="${exercise._id}" aria-label="Remove from favorites">
-              ✕
-            </button>
-          </div>
-          
-          <div class="favorite-content">
-            <button class="favorite-start-btn" data-id="${exercise._id}">
-              Start
-            </button>
-          </div>
-          
-          <h3 class="favorite-title">${exercise.name}</h3>
-          
-          <div class="favorite-details">
-            <div class="detail-row">
-              <span class="label">Burned calories:</span>
-              <span class="value">${exercise.burnedCalories} / ${exercise.time} min</span>
-            </div>
-            <div class="detail-row">
-              <span class="label">Body part:</span>
-              <span class="value">${exercise.bodyPart}</span>
-            </div>
-            <div class="detail-row">
-              <span class="label">Target:</span>
-              <span class="value">${exercise.target}</span>
-            </div>
-          </div>
-        </div>
-      `
-      )
-      .join('');
-
-    this.container.innerHTML = `
-      <div class="favorites-grid">
-        ${favoritesHTML}
-      </div>
-    `;
-
-    this.setupEventListeners();
-  }
-
-  setupEventListeners() {
-    this.container.querySelectorAll('.favorite-start-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const exerciseId = e.currentTarget.dataset.id;
-        ExerciseModal.open(exerciseId);
+  const cardsHtml = favorites
+    .map(exercise => {
+      return replacePlaceholders(cardTemplate, {
+        id: exercise._id,
+        name: exercise.name,
+        burnedCalories: exercise.burnedCalories || 0,
+        time: exercise.time || 0,
+        bodyPart: exercise.bodyPart || 'N/A',
+        target: exercise.target || 'N/A',
+        rating: exercise.rating || 0,
+        ratingFormatted: exercise.rating ? exercise.rating.toFixed(1) : '0.0',
+        cardClass: 'is-favorite',
       });
-    });
+    })
+    .join('');
 
-    this.container.querySelectorAll('.remove-favorite-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const exerciseId = e.currentTarget.dataset.id;
-        
-        if (confirm('Remove this exercise from favorites?')) {
-          this.removeFromFavorites(exerciseId);
-        }
-      });
-    });
-  }
+  container.className = 'favorites-grid';
+  container.innerHTML = cardsHtml;
 
-  init() {
-    this.render();
+  if (shouldPaginate) {
+    renderPagination(state.page, totalPages, 'favorites-pagination');
+  } else if (paginationContainer) {
+    paginationContainer.innerHTML = '';
   }
 }
 
-const favoritesManager = new FavoritesPage('#favorites-container');
+// Handle page change
+function handlePageChange(newPage) {
+  if (newPage && newPage !== state.page) {
+    state.page = newPage;
+    renderFavorites();
+  }
+}
 
-export default favoritesManager;
-export { FavoritesPage };
+// Setup resize listener
+function setupResizeListener() {
+  let timeoutId;
+  let currentPerPage = getPerPage();
+
+  window.addEventListener('resize', () => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      const newPerPage = getPerPage();
+      if (newPerPage !== currentPerPage) {
+        currentPerPage = newPerPage;
+        state.page = 1;
+        renderFavorites();
+      }
+    }, DEBOUNCE_MS);
+  });
+}
+
+// Setup event delegation for favorites container
+function setupEventHandlers() {
+  const container = document.getElementById('favorites-container');
+  if (!container) return;
+
+  if (container.dataset.listenerAttached === 'true') return;
+  container.dataset.listenerAttached = 'true';
+
+  container.addEventListener('click', async (e) => {
+    // Delete button
+    const deleteBtn = e.target.closest('.favorite-delete-btn');
+    if (deleteBtn) {
+      e.stopPropagation();
+      const exerciseId = deleteBtn.dataset.id;
+      if (exerciseId) {
+        removeFavorite(exerciseId);
+        // Remove from cached state
+        state.exercises = state.exercises.filter(ex => ex._id !== exerciseId);
+        await renderFavorites();
+      }
+      return;
+    }
+
+    // Start button
+    const startBtn = e.target.closest('.exercise-start-btn');
+    if (startBtn) {
+      e.stopPropagation();
+      const exerciseId = startBtn.dataset.id;
+      if (!exerciseId) return;
+
+      await openExerciseModal(exerciseId, {
+        isFavoritesPage: true,
+        onRemoveFavorite: async () => {
+          state.exercises = state.exercises.filter(ex => ex._id !== exerciseId);
+          await renderFavorites();
+        },
+      });
+    }
+  });
+}
+
+// Initialize favorites page
+export function initFavoritesPage() {
+  const favoritesPage = document.querySelector('.favorites-page');
+
+  // Setup event listeners immediately (sync - critical for interactivity)
+  setupEventHandlers();
+  setupPagination(handlePageChange, 'favorites-pagination');
+  setupResizeListener();
+
+  // Mark as loaded immediately
+  if (favoritesPage) {
+    favoritesPage.classList.add('loaded');
+  }
+
+  // Defer async operations (non-critical for initial render)
+  runAfterLoad(async () => {
+    try {
+      await initQuote();
+      await fetchFavoritesData();
+      await renderFavorites();
+    } catch (err) {
+      console.error('Error initializing favorites page:', err);
+    }
+  });
+}

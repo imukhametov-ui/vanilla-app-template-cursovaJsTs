@@ -1,118 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link rel="icon" type="image/svg+xml" href="/vanilla-app-template-cursovaJsTs/favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://your-energy.b.goit.study">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Your Energy - personalized fitness workouts and exercises for a healthy lifestyle">
-  <title>Your Energy - Home</title>
-</head>
-<body>
-  <!-- Header -->
-  <load src="partials/header.html" />
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Energy</title>
+        <!-- DNS prefetch and preconnect for API -->
+    <link rel="dns-prefetch" href="https://your-energy.b.goit.study">
+    <link rel="preconnect" href="https://your-energy.b.goit.study" crossorigin>
 
-  <!-- Main Content -->
-  <main>
-    
-   <!-- Hero Text ліворуч НАД великою картинкою -->
-<section class="hero-text-section">
-  <div class="container">
-    <div class="hero-text-content">
-      <h1>Get <span class="accent">Body</span> in shape, Stay healthy</h1>
-      <h4>Transform your physique and embrace a healthier lifestyle with our comprehensive fitness and nutrition support</h4>
-    </div>
-  </div>
-</section>
+    <!-- Preconnect for images CDN -->
+    <link rel="dns-prefetch" href="https://ftp.goit.study">
+    <link rel="preconnect" href="https://ftp.goit.study" crossorigin>
 
-<!-- Hero Image - 1376×350px ВІД КРАЮ ДО КРАЮ -->
-<section class="hero-full-width">
-  <img 
-    src="/images/hero-fitness.jpg"
-    alt="Fitness training"
-    width="1376"
-    height="350"
-    loading="eager"
-  >
-</section>
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="./fonts/DMSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./fonts/DMSans-Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./fonts/DMSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
 
+    <!-- Async CSS loading: preload + onload pattern -->
+    <link rel="preload" href="./css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="./css/main.css"></noscript>
+    <script type="module" src="./main.js"></script>
 
-    <!-- Exercises Header + Filter Tabs -->
-    <section class="exercises-filter-header">
-      <div class="container">
-        <div class="filter-header-row">
-          <h2>Exercises</h2>
-          <div id="filter-tabs" class="filter-tabs">
-            <!-- JS fills this -->
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  </head>
+  <body>
+    <load src="partials/icons.html" />
+    <load src="partials/header.html" />
+
+    <main class="main">
+        <load src="partials/hero.html" />
+
+        <load src="partials/filters.html" />
+
+        <div class="main-content">
+          <div class="container">
+            <section class="content-area" aria-labelledby="exercises-heading">
+              <h2 id="exercises-heading" class="visually-hidden">Exercises List</h2>
+              <ul
+                id="exercises-container"
+                class="categories-grid"
+                aria-live="polite"
+                aria-busy="false"
+              ></ul>
+              <nav id="pagination-container" aria-label="Pagination"></nav>
+            </section>
+  
+            <section class="sidebar" aria-label="Additional information">
+              <load src="partials/quote.html" />
+              <load src="partials/sidebar-image.html" />
+              <load src="partials/info-card.html" />
+            </section>
           </div>
         </div>
-      </div>
-    </section>
+    </main>
 
-    <!-- Main Grid -->
-    <section class="main-content">
-      <div class="container">
-        <div class="content-grid">
-          
-          <!-- LEFT COLUMN -->
-          <aside class="sidebar-left">
-            
-            <!-- Quote Card - STATIC (no JS) -->
-            <div class="quote-wrapper">
-              <div class="quote-card">
-                <h3 class="quote-title">QUOTE OF THE DAY</h3>
-                <p class="quote-text">A lot of times I find that people who are blessed with the most talent don't ever develop that attitude, and the ones who aren't blessed in that way are the most competitive and have the biggest heart.</p>
-                <p class="quote-author">Tom Brady</p>
-              </div>
-            </div>
-            
-            <!-- Medium Image -->
-            <div class="medium-image">
-              <img src="/images/hero-fitness@2x.jpg" alt="Workout" width="444" height="262">
-            </div>
-            
-            <!-- 110 Minutes -->
-            <div class="info-card">
-              <h2 class="info-card-title">110</h2>
-              <p>minutes</p>
-              <p>Daily physical activity is essential for maintaining health and fitness</p>
-            </div>
-            
-          </aside>
-          
-          <!-- RIGHT COLUMN -->
-        <div class="exercises-column">
-  <!-- EXERCISES ПЕРШИЙ -->
-  <div class="exercises-section" style="display: none;">
-    <div class="exercises-header">
-      <h2>Exercises <span id="category-name"></span></h2>
-      <input 
-        type="text" 
-        id="search-input" 
-        class="search-input"
-        placeholder="Search exercises..."
-      />
-    </div>
-    <div id="exercises-container" class="exercises-wrapper"></div>
-  </div>
-  
-  <!-- FILTER ДРУГИЙ -->
-  <div id="filter-content" class="filter-content">
-    <!-- 12 cards from JS -->
-  </div>
-</div>
-       
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <load src="partials/footer.html" />
-
-  <!-- Main JS -->
-  <script type="module" src="/main.js"></script>
-</body>
+    <load src="partials/footer.html" />
+    <load src="partials/exercise-modal.html" />
+    <load src="partials/rating-modal.html" />
+  </body>
 </html>

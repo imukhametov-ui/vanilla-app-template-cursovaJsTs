@@ -1,0 +1,97 @@
+/* Categories Grid */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+  gap: 32px 15px;
+  width: 100%;
+  justify-content: center;
+  min-height: 482px; /* Reserve space for 2 rows of cards to prevent CLS */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.category-card {
+  width: 100%;
+  min-width: 225px;
+  min-height: 225px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+  background: #ececec;
+}
+
+/* Shimmer effect while loading image - uses shared .skeleton-shimmer::after */
+.category-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: translateX(-100%);
+  animation: shine 1.5s linear infinite;
+  z-index: 0;
+}
+
+.category-card:focus {
+  outline: 2px solid #f4f4f4;
+  outline-offset: 2px;
+}
+
+.category-card-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.category-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, rgb(17, 17, 17, 0.5), rgb(17, 17, 17, 0.5));
+  z-index: 2;
+}
+
+.category-card-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.category-name {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 24px; /* Figma: 24px */
+  text-transform: capitalize;
+  color: #f4f4f4;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.category-filter {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px; /* Figma: 18px */
+  color: rgb(244, 244, 244, 0.65);
+  margin: 0;
+}

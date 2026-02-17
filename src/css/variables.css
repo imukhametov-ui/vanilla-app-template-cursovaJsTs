@@ -1,0 +1,80 @@
+:root {
+  /* Colors - Based on Figma design */
+  --color-dark: #242424;
+  --color-light: #f4f4f4;
+  --color-white: #fff;
+  --color-black: #242424;
+  --color-gray-60: rgb(36, 36, 36, 0.7);
+  --color-dark-10: rgb(36, 36, 36, 0.1);
+  --color-dark-80: rgb(36, 36, 36, 0.8);
+  --color-light-60: rgb(244, 244, 244, 0.7);
+  --color-light-40: rgb(244, 244, 244, 0.6);
+  --color-light-30: rgb(244, 244, 244, 0.3);
+  --color-light-20: rgb(244, 244, 244, 0.2);
+  --color-light-65: rgb(244, 244, 244, 0.65);
+  --color-separator: rgb(230, 230, 230);
+  --color-star: #eea10c;
+  --color-error: #ff6b6b;
+  --color-overlay: rgb(0, 0, 0, 0.5);
+  --color-gray-border: #d4d4d4;
+  --color-footer-text: #c6cdd1;
+  --color-icon: #4e4e4e;
+
+  /* Z-index scale */
+  --z-base: 0;
+  --z-content: 1;
+  --z-overlay: 2;
+  --z-modal-content: 10;
+  --z-toast: 99;
+  --z-sticky: 100;
+  --z-modal: 999;
+
+  /* Typography */
+  --font-main: 'DM Sans', sans-serif;
+  --font-display: 'Neue Montreal', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Font Sizes */
+  --fs-12: 12px;
+  --fs-14: 14px;
+  --fs-16: 16px;
+  --fs-18: 18px;
+  --fs-20: 20px;
+  --fs-24: 24px;
+  --fs-28: 28px;
+  --fs-38: 38px;
+  --fs-44: 44px;
+  --fs-56: 56px;
+  --fs-74: 74px;
+
+  /* Line Heights */
+  --lh-18: 18px;
+  --lh-24: 24px;
+  --lh-28: 28px;
+  --lh-32: 38px;
+  --lh-44: 44px;
+  --lh-48: 48px;
+  --lh-60: 60px;
+  --lh-74: 74px;
+  
+/* Letter Spacing */
+  --lt-sp-2: -0.02em;
+
+  /* Spacing */
+  --gap-4: 4px;
+  --gap-6: 6px;
+  --gap-8: 8px;
+  --gap-12: 12px;
+  --gap-15: 15px;
+  --gap-16: 16px;
+  --gap-20: 20px;
+  --gap-32: 32px;
+  --gap-40: 40px;
+
+  /* Border Radius */
+  --radius-10: 10px;
+  --radius-20: 20px;
+  --radius-60: 60px;
+
+  /* Transitions */
+  --transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
